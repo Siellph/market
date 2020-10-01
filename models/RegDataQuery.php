@@ -18,7 +18,7 @@ class RegDataQuery extends RegData
     {
         return [
             [['id'], 'integer'],
-            [['company_name', 'inn', 'adress', 'kkt', 'zn_kkt', 'fn', 'zn_fn', 'licens', 'proshivka', 'rnm', 'name_ofd', 'vid_raboti', 'date_reg', 'status'], 'safe'],
+            [['company_name', 'inn', 'adress', 'kkt', 'zn_kkt', 'fn', 'zn_fn', 'licens', 'proshivka', 'rnm', 'vid_raboti', 'date_reg', 'status'], 'safe'],
         ];
     }
 
@@ -72,7 +72,6 @@ class RegDataQuery extends RegData
             ->andFilterWhere(['like', 'zn_fn', $this->zn_fn])
             ->andFilterWhere(['like', 'licens', $this->licens])
             ->andFilterWhere(['like', 'rnm', $this->rnm])
-            ->andFilterWhere(['like', 'name_ofd', $this->name_ofd])
             ->andFilterWhere(['like', 'vid_raboti', $this->vid_raboti])
             ->andFilterWhere(['like', 'status', $this->status]);
 

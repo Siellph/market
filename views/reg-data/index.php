@@ -38,7 +38,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'licens',
             'proshivka',
             'rnm',
-            'name_ofd',
             'vid_raboti',
             'status',
 

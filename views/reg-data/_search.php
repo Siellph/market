@@ -40,8 +40,6 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'rnm') ?>
 
-    <?php // echo $form->field($model, 'name_ofd') ?>
-
     <?php // echo $form->field($model, 'vid_raboti') ?>
 
     <?php // echo $form->field($model, 'date_reg') ?>

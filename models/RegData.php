@@ -39,7 +39,7 @@ class RegData extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['company_name', 'adress', 'kkt', 'zn_kkt', 'fn', 'zn_fn', 'licens', 'name_ofd', 'vid_raboti', 'date_reg', 'status'], 'required'],
+            [['company_name', 'adress', 'kkt', 'zn_kkt', 'fn', 'zn_fn', 'licens', 'vid_raboti', 'date_reg', 'status'], 'required'],
             [['proshivka', 'date_reg'], 'safe'],
             [['company_name', 'kkt', 'name_ofd'], 'string', 'max' => 256],
             [['inn'], 'string', 'max' => 12],
@@ -68,7 +68,6 @@ class RegData extends \yii\db\ActiveRecord
             'licens' => 'Лицензия',
             'proshivka' => 'Прошивка',
             'rnm' => 'РНМ',
-            'name_ofd' => 'Наименование ОФД',
             'vid_raboti' => 'Вид работы',
             'date_reg' => 'Дата регистрации',
             'status' => 'Статус',
