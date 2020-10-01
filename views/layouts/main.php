@@ -56,7 +56,6 @@ AppAsset::register($this);
     ]);
     NavBar::end();
     ?>
-
     <div class="main-content">
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
@@ -65,6 +64,8 @@ AppAsset::register($this);
         <?= $content ?>
     </div>
 </div>
+
+
 
 <footer class="footer">
     <div class="container">

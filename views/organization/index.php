@@ -6,15 +6,15 @@ use yii\widgets\Pjax;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Reg Datas';
+$this->title = 'Organizations';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="reg-data-index main-content">
+<div class="organization-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Reg Data', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Organization', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php Pjax::begin(); ?>
@@ -28,16 +28,10 @@ $this->params['breadcrumbs'][] = $this->title;
             'name',
             'inn',
             'adress',
-            'kkt',
-            //'zn_kkt',
-            //'fn',
-            //'zn_fn',
-            //'rnm',
-            //'licens',
-            //'proshivka',
-            //'vid_raboti',
-            //'date_reg',
-            //'status',
+            'director',
+            //'mesto_ustanovki',
+            //'adress_ustanovki',
+            //'ofd',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
