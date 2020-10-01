@@ -57,15 +57,22 @@ AppAsset::register($this);
     ]);
     NavBar::end();
     ?>
+<<<<<<< Updated upstream
 
     <div class="main-content">
         <?= Breadcrumbs::widget([
+=======
+</div>
+<div class="main-content">
+<?= Breadcrumbs::widget([
+>>>>>>> Stashed changes
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
         <?= Alert::widget() ?>
+
         <?= $content ?>
     </div>
-</div>
+
 
 <footer class="footer">
     <div class="container">
