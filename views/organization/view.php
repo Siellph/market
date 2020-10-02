@@ -4,15 +4,15 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\RegData */
+/* @var $model app\models\Organization */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Регистрационные данные', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Организации', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="col-md-4"></div>
-<div class="reg-data-view col-md-4">
+<div class="organization-view col-md-4">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -34,16 +34,10 @@ $this->params['breadcrumbs'][] = $this->title;
             'name',
             'inn',
             'adress',
-            'kkt',
-            'zn_kkt',
-            'fn',
-            'zn_fn',
-            'rnm',
-            'licens',
-            'proshivka',
-            'vid_raboti',
-            'date_reg',
-            'status',
+            'director',
+            'mesto_ustanovki',
+            'adress_ustanovki',
+            'ofd',
         ],
     ]) ?>
 

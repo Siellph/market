@@ -4,11 +4,11 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\RegDataQuery */
+/* @var $model app\models\OrganizationQuery */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="reg-data-search">
+<div class="organization-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
@@ -26,25 +26,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'adress') ?>
 
-    <?= $form->field($model, 'kkt') ?>
+    <?= $form->field($model, 'director') ?>
 
-    <?php // echo $form->field($model, 'zn_kkt') ?>
+    <?php // echo $form->field($model, 'mesto_ustanovki') ?>
 
-    <?php // echo $form->field($model, 'fn') ?>
+    <?php // echo $form->field($model, 'adress_ustanovki') ?>
 
-    <?php // echo $form->field($model, 'zn_fn') ?>
-
-    <?php // echo $form->field($model, 'rnm') ?>
-
-    <?php // echo $form->field($model, 'licens') ?>
-
-    <?php // echo $form->field($model, 'proshivka') ?>
-
-    <?php // echo $form->field($model, 'vid_raboti') ?>
-
-    <?php // echo $form->field($model, 'date_reg') ?>
-
-    <?php // echo $form->field($model, 'status') ?>
+    <?php // echo $form->field($model, 'ofd') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
