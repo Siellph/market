@@ -43,43 +43,57 @@ $gridColumns = [
         'vAlign'=>'middle',
         'headerOptions'=>['class'=>'kv-sticky-column'],
         'contentOptions'=>['class'=>'kv-sticky-column'],
-        'editableOptions'=>['header'=>'ИНН', 'size'=>'md']
+        'editableOptions'=>['header'=>'ИНН', 'size'=>'md'],
+        'xlFormat' => "\@",
+        'format' => ['text'],
     ],
     [
+        'class' => '\kartik\grid\DataColumn',
         'attribute' => 'adress',
         'vAlign'=>'middle',
         'headerOptions'=>['class'=>'kv-sticky-column'],
         'contentOptions'=>['class'=>'kv-sticky-column'],
     ],
             [
+                'class' => '\kartik\grid\DataColumn',
                 'attribute' => 'kkt',
                 'vAlign'=>'middle',
                 'headerOptions'=>['class'=>'kv-sticky-column'],
                 'contentOptions'=>['class'=>'kv-sticky-column'],
             ],
             [
+                'class' => '\kartik\grid\DataColumn',
                 'attribute' => 'zn_kkt',
                 'vAlign'=>'middle',
                 'headerOptions'=>['class'=>'kv-sticky-column'],
                 'contentOptions'=>['class'=>'kv-sticky-column'],
+                'xlFormat' => "\@",
+                'format' => ['text'],
             ],
             [
+                'class' => '\kartik\grid\DataColumn',
                 'attribute' => 'fn',
                 'vAlign'=>'middle',
                 'headerOptions'=>['class'=>'kv-sticky-column'],
-                'contentOptions'=>['class'=>'kv-sticky-column'],
+                'contentOptions'=>['class'=>'kv-sticky-column']
             ],
             [
+                'class' => '\kartik\grid\DataColumn',
                 'attribute' => 'zn_fn',
                 'vAlign'=>'middle',
                 'headerOptions'=>['class'=>'kv-sticky-column'],
                 'contentOptions'=>['class'=>'kv-sticky-column'],
+                'xlFormat' => "\@",
+                'format' => ['text'],
             ],
             [
+                'class' => '\kartik\grid\DataColumn',
                 'attribute' => 'rnm',
                 'vAlign'=>'middle',
                 'headerOptions'=>['class'=>'kv-sticky-column'],
                 'contentOptions'=>['class'=>'kv-sticky-column'],
+                'xlFormat' => "\@",
+                'format' => ['text'],
             ],
             [
                 'attribute' => 'licens',
@@ -115,9 +129,9 @@ $gridColumns = [
         'class' => 'kartik\grid\ActionColumn',
         'dropdown' => true,
         'vAlign'=>'middle',
-        'urlCreator' => function($action, $model, $key, $index) { return '#'; },
-        'viewOptions'=>['title'=>$viewMsg, 'data-toggle'=>'tooltip'],
-        'updateOptions'=>['title'=>$updateMsg, 'data-toggle'=>'tooltip'],
+        'urlCreator' => function($action, $model, $key, $index) { return ''; },
+        'viewOptions'=>['title'=>$viewMsg, 'data-toggle'=>'view'],
+        'updateOptions'=>['title'=>$updateMsg, 'data-toggle'=>'update'],
         'deleteOptions'=>['title'=>$deleteMsg, 'data-toggle'=>'tooltip'], 
     ],
     ['class' => 'kartik\grid\CheckboxColumn']
@@ -139,6 +153,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
     'dataProvider' => $dataProvider,
     'filterModel' => $searchModel,
+    'autoXlFormat' => true,
     'columns' => $gridColumns,
     'containerOptions' => ['style'=>'overflow: auto'], // only set when $responsive = false
     'toolbar' =>  [
@@ -160,8 +175,6 @@ $this->params['breadcrumbs'][] = $this->title;
     'panel' => [
         'type' => GridView::TYPE_PRIMARY
     ],
-    'resizableColumns'=>true,
-    'resizeStorageKey'=>Yii::$app->user->id . '-' . date("m")
 ]);
 
 
