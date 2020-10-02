@@ -4,12 +4,12 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\RegData;
+use app\models\Organization;
 
 /**
- * RegDataQuery represents the model behind the search form of `app\models\RegData`.
+ * OrganizationQuery represents the model behind the search form of `app\models\Organization`.
  */
-class RegDataQuery extends RegData
+class OrganizationQuery extends Organization
 {
     /**
      * {@inheritdoc}
@@ -18,7 +18,7 @@ class RegDataQuery extends RegData
     {
         return [
             [['id'], 'integer'],
-            [['name', 'inn', 'adress', 'kkt', 'zn_kkt', 'fn', 'zn_fn', 'rnm', 'licens', 'proshivka', 'vid_raboti', 'date_reg', 'status'], 'safe'],
+            [['name', 'inn', 'adress', 'director', 'mesto_ustanovki', 'adress_ustanovki', 'ofd'], 'safe'],
         ];
     }
 
@@ -40,7 +40,7 @@ class RegDataQuery extends RegData
      */
     public function search($params)
     {
-        $query = RegData::find();
+        $query = Organization::find();
 
         // add conditions that should always apply here
 
@@ -59,21 +59,15 @@ class RegDataQuery extends RegData
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'proshivka' => $this->proshivka,
-            'date_reg' => $this->date_reg,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like', 'inn', $this->inn])
             ->andFilterWhere(['like', 'adress', $this->adress])
-            ->andFilterWhere(['like', 'kkt', $this->kkt])
-            ->andFilterWhere(['like', 'zn_kkt', $this->zn_kkt])
-            ->andFilterWhere(['like', 'fn', $this->fn])
-            ->andFilterWhere(['like', 'zn_fn', $this->zn_fn])
-            ->andFilterWhere(['like', 'rnm', $this->rnm])
-            ->andFilterWhere(['like', 'licens', $this->licens])
-            ->andFilterWhere(['like', 'vid_raboti', $this->vid_raboti])
-            ->andFilterWhere(['like', 'status', $this->status]);
+            ->andFilterWhere(['like', 'director', $this->director])
+            ->andFilterWhere(['like', 'mesto_ustanovki', $this->mesto_ustanovki])
+            ->andFilterWhere(['like', 'adress_ustanovki', $this->adress_ustanovki])
+            ->andFilterWhere(['like', 'ofd', $this->ofd]);
 
         return $dataProvider;
     }

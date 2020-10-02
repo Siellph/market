@@ -3,18 +3,17 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\RegData;
 use app\models\Organization;
-use app\models\RegDataQuery;
+use app\models\OrganizationQuery;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * RegDataController implements the CRUD actions for RegData model.
+ * OrganizationController implements the CRUD actions for Organization model.
  */
-class RegDataController extends Controller
+class OrganizationController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -32,27 +31,25 @@ class RegDataController extends Controller
     }
 
     /**
-     * Lists all RegData models.
+     * Lists all Organization models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new RegDataQuery();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $organization = new Organization();
+        $searchModel = new OrganizationQuery();
         // $dataProvider = new ActiveDataProvider([
-        //     'query' => RegData::find(),
+        //     'query' => Organization::find(),
         // ]);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'organization' => $organization,
         ]);
     }
 
     /**
-     * Displays a single RegData model.
+     * Displays a single Organization model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -65,13 +62,13 @@ class RegDataController extends Controller
     }
 
     /**
-     * Creates a new RegData model.
+     * Creates a new Organization model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new RegData();
+        $model = new Organization();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -83,7 +80,7 @@ class RegDataController extends Controller
     }
 
     /**
-     * Updates an existing RegData model.
+     * Updates an existing Organization model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -103,7 +100,7 @@ class RegDataController extends Controller
     }
 
     /**
-     * Deletes an existing RegData model.
+     * Deletes an existing Organization model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -117,15 +114,15 @@ class RegDataController extends Controller
     }
 
     /**
-     * Finds the RegData model based on its primary key value.
+     * Finds the Organization model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return RegData the loaded model
+     * @return Organization the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = RegData::findOne($id)) !== null) {
+        if (($model = Organization::findOne($id)) !== null) {
             return $model;
         }
 

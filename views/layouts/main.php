@@ -38,8 +38,8 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            // ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'Сведения о юр. лицах', 'url' => ['/reg-data/index']],
+            ['label' => 'Home', 'url' => ['/site/index']],
+            ['label' => 'Сведения о юр. лицах', 'url' => ['/organization/index']],
             ['label' => 'Рег. данные', 'url' => ['/reg-data/index']],
             Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/site/login']]
@@ -57,22 +57,16 @@ AppAsset::register($this);
     ]);
     NavBar::end();
     ?>
-<<<<<<< Updated upstream
 
-    <div class="main-content">
+    <div class="container col-md-12">
         <?= Breadcrumbs::widget([
-=======
-</div>
-<div class="main-content">
-<?= Breadcrumbs::widget([
->>>>>>> Stashed changes
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
         <?= Alert::widget() ?>
-
         <?= $content ?>
     </div>
-
+    
+</div>
 
 <footer class="footer">
     <div class="container">
