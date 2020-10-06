@@ -129,10 +129,6 @@ $gridColumns = [
         'class' => 'kartik\grid\ActionColumn',
         'dropdown' => true,
         'vAlign'=>'middle',
-        'urlCreator' => function($action, $model, $key, $index) { return ''; },
-        'viewOptions'=>['title'=>$viewMsg, 'data-toggle'=>'view'],
-        'updateOptions'=>['title'=>$updateMsg, 'data-toggle'=>'update'],
-        'deleteOptions'=>['title'=>$deleteMsg, 'data-toggle'=>'tooltip'], 
     ],
     ['class' => 'kartik\grid\CheckboxColumn']
 ];
@@ -229,3 +225,15 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php Pjax::end(); ?>
 
 </div>
+
+
+<!-- <li class="select2-results__option" role="group" aria-label="АО  «КОНЦЕРН «АВТОМАТИКА»">
+    <strong class="select2-results__group">
+        АО «КОНЦЕРН «АВТОМАТИКА»
+    </strong>
+    <ul class="select2-results__options select2-results__options--nested">
+        <li class="select2-results__option" id="select2-fn_model_select-result-0tj0-0019" role="treeitem" aria-selected="false">
+            Шифровальное (криптографическое) средство защиты фискальных данных фискальный накопитель «ФН-1.1» исполнение Ав36-2
+        </li>
+    </ul>
+</li> -->
