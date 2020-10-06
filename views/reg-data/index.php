@@ -23,9 +23,9 @@ $gridColumns = [
             return GridView::ROW_COLLAPSED;
         },
         // uncomment below and comment detail if you need to render via ajax
-        // 'detailUrl' => Url::to(['/site/book-details']),
+        // 'detailUrl' => Url::to(['../organization/view']),
         'detail' => function ($model, $key, $index, $column) {
-            return Yii::$app->controller->renderPartial('..\organization\view', ['model' => $model]);
+            return Yii::$app->controller->renderPartial('../organization/view', ['model' => $model]);
         },
         'headerOptions' => ['class' => 'kartik-sheet-style'],
         'expandOneOnly' => true
