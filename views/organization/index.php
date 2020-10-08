@@ -1,43 +1,66 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+use kartik\grid\GridView;
 use yii\widgets\Pjax;
-/* @var $this yii\web\View */
-/* @var $dataProvider yii\data\ActiveDataProvider */
+
+/**
+ * @var yii\web\View $this
+ * @var yii\data\ActiveDataProvider $dataProvider
+ * @var app\models\OrganizationQuery $searchModel
+ */
 
 $this->title = 'Организации';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="organization-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
+    <div class="page-header">
+        <h1><?= Html::encode($this->title) ?></h1>
+    </div>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Создать организацию', ['create'], ['class' => 'btn btn-success']) ?>
+        <?php /* echo Html::a('Create Organization', ['create'], ['class' => 'btn btn-success'])*/  ?>
     </p>
 
-    <?php Pjax::begin(); ?>
-
-    <?= GridView::widget([
+    <?php Pjax::begin(); echo GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            // 'id',
             'name',
             'inn',
             'adress',
             'director',
             'mesto_ustanovki',
-            'adress_ustanovki',
-            'ofd',
+           'adress_ustanovki', 
+           'ofd', 
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'buttons' => [
+                    'update' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>',
+                            Yii::$app->urlManager->createUrl(['organization/view', 'id' => $model->inn, 'edit' => 't']),
+                            ['title' => Yii::t('yii', 'Edit'),]
+                        );
+                    }
+                ],
+            ],
         ],
-    ]); ?>
+        'responsive' => true,
+        'hover' => true,
+        'condensed' => true,
+        'floatHeader' => true,
 
-    <?php Pjax::end(); ?>
+        'panel' => [
+            'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-th-list"></i> '.Html::encode($this->title).' </h3>',
+            'type' => 'info',
+            'before' => Html::a('<i class="glyphicon glyphicon-plus"></i> Add', ['create'], ['class' => 'btn btn-success']),
+            'after' => Html::a('<i class="glyphicon glyphicon-repeat"></i> Reset List', ['index'], ['class' => 'btn btn-info']),
+            'showFooter' => false
+        ],
+    ]); Pjax::end(); ?>
 
 </div>

@@ -1,36 +1,34 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\DetailView;
+use kartik\detail\DetailView;
+use kartik\datecontrol\DateControl;
 
-/* @var $this yii\web\View */
-/* @var $model app\models\Organization */
+/**
+ * @var yii\web\View $this
+ * @var app\models\Organization $model
+ */
 
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Организации', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
-\yii\web\YiiAsset::register($this);
 ?>
-<div class="col-md-4"></div>
-<div class="organization-view col-md-4">
+<div class="organization-view container">
+    <div class="page-header">
+        <h1><?= Html::encode($this->title) ?></h1>
+    </div>
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a('Обновить', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Удалить', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Вы действительно хотите удалить данную запись?',
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
 
     <?= DetailView::widget([
         'model' => $model,
+        'condensed' => false,
+        'hover' => true,
+        'mode' => Yii::$app->request->get('edit') == 't' ? DetailView::MODE_EDIT : DetailView::MODE_VIEW,
+        'panel' => [
+            'heading' => $this->title,
+            'type' => DetailView::TYPE_INFO,
+        ],
         'attributes' => [
-            'id',
             'name',
             'inn',
             'adress',
@@ -39,6 +37,10 @@ $this->params['breadcrumbs'][] = $this->title;
             'adress_ustanovki',
             'ofd',
         ],
+        'deleteOptions' => [
+            'url' => ['delete', 'id' => $model->inn],
+        ],
+        'enableEditMode' => true,
     ]) ?>
 
 </div>

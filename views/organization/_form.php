@@ -1,36 +1,47 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use kartik\widgets\ActiveForm;
+use kartik\builder\Form;
+use kartik\datecontrol\DateControl;
 
-/* @var $this yii\web\View */
-/* @var $model app\models\Organization */
-/* @var $form yii\widgets\ActiveForm */
+/**
+ * @var yii\web\View $this
+ * @var app\models\Organization $model
+ * @var yii\widgets\ActiveForm $form
+ */
 ?>
 
 <div class="organization-form">
 
-    <?php $form = ActiveForm::begin(); ?>
-<div class="col-md-6">
-    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+    <?php $form = ActiveForm::begin(['type' => ActiveForm::TYPE_HORIZONTAL]); echo Form::widget([
 
-    <?= $form->field($model, 'inn')->textInput(['maxlength' => true]) ?>
+        'model' => $model,
+        'form' => $form,
+        'columns' => 1,
+        'attributes' => [
 
-    <?= $form->field($model, 'adress')->textInput(['maxlength' => true]) ?>
+            'name' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Наименование организации...', 'maxlength' => 256]],
 
-    <?= $form->field($model, 'director')->textInput(['maxlength' => true]) ?>
-    </div>
-    <div class="col-md-6">
-    <?= $form->field($model, 'mesto_ustanovki')->textInput(['maxlength' => true]) ?>
+            'inn' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter ИНН...', 'maxlength' => 12]],
 
-    <?= $form->field($model, 'adress_ustanovki')->textInput(['maxlength' => true]) ?>
+            'adress' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Юридический адрес...', 'maxlength' => 512]],
 
-    <?= $form->field($model, 'ofd')->textInput(['maxlength' => true]) ?>
+            'director' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Должность и руководитель...', 'maxlength' => 512]],
 
-    <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
-    </div>
-    </div>
-    <?php ActiveForm::end(); ?>
+            'mesto_ustanovki' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Место установки...', 'maxlength' => 64]],
+
+            'adress_ustanovki' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Адрес установки...', 'maxlength' => 512]],
+
+            'ofd' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter ОФД...', 'maxlength' => 256]],
+
+        ]
+
+    ]);
+
+    echo Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'),
+        ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']
+    );
+    ActiveForm::end(); ?>
 
 </div>

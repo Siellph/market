@@ -24,7 +24,8 @@
         "kartik-v/yii2-widgets": "@dev",
         "kartik-v/yii2-editable": "@dev",
         "mpdf/mpdf": "^8.0",
-        "kartik-v/yii2-mpdf": "dev-master"
+        "kartik-v/yii2-mpdf": "dev-master",
+        "warrence/yii2-kartikgii": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

@@ -2,15 +2,17 @@
 
 use yii\helpers\Html;
 
-/* @var $this yii\web\View */
-/* @var $model app\models\Organization */
+/**
+ * @var yii\web\View $this
+ * @var app\models\Organization $model
+ */
 
-$this->title = 'Обновление данных: ' . $model->name;
+$this->title = 'Обновление ' . ' ' . $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Организации', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Обновление';
+$this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->inn]];
+$this->params['breadcrumbs'][] = 'Update';
 ?>
-<div class="organization-update">
+<div class="organization-update container">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

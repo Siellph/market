@@ -7,7 +7,6 @@ use Yii;
 /**
  * This is the model class for table "organization".
  *
- * @property int $id
  * @property string $name Наименование организации
  * @property string $inn ИНН
  * @property string $adress Юридический адрес
@@ -15,6 +14,8 @@ use Yii;
  * @property string $mesto_ustanovki Место установки
  * @property string $adress_ustanovki Адрес установки
  * @property string $ofd ОФД
+ *
+ * @property RegData $inn0
  */
 class Organization extends \yii\db\ActiveRecord
 {
@@ -37,6 +38,8 @@ class Organization extends \yii\db\ActiveRecord
             [['inn'], 'string', 'max' => 12],
             [['adress', 'director', 'adress_ustanovki'], 'string', 'max' => 512],
             [['mesto_ustanovki'], 'string', 'max' => 64],
+            [['inn'], 'unique'],
+            [['inn'], 'exist', 'skipOnError' => true, 'targetClass' => RegData::className(), 'targetAttribute' => ['inn' => 'inn']],
         ];
     }
 
@@ -46,7 +49,6 @@ class Organization extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
             'name' => 'Наименование организации',
             'inn' => 'ИНН',
             'adress' => 'Юридический адрес',
@@ -57,6 +59,11 @@ class Organization extends \yii\db\ActiveRecord
         ];
     }
 
+    /**
+     * Gets query for [[Inn0]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
     public function getInn0()
     {
         return $this->hasOne(RegData::className(), ['inn' => 'inn']);

@@ -1,9 +1,11 @@
 <?php
 
-use app\controllers\RegDataController;
+use app\controllers\OrganizationController;
 use yii\helpers\Html;
 use kartik\grid\GridView;
 use yii\widgets\Pjax;
+use yii\helpers\Url;
+
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
@@ -22,11 +24,13 @@ $gridColumns = [
         'value' => function ($model, $key, $index, $column) {
             return GridView::ROW_COLLAPSED;
         },
-        // uncomment below and comment detail if you need to render via ajax
-        // 'detailUrl' => Url::to(['../organization/view']),
-        'detail' => function ($model, $key, $index, $column) {
-            return Yii::$app->controller->renderPartial('../organization/view', ['model' => $model]);
-        },
+
+    //  'detail' => function ($model, $key, $index, $column) {
+    //     return Yii::$app->controller->render('../organization/_expandview', ['model' => $model]);
+    // },
+
+    'detailUrl' => Url::to(['../OrganizationController/Expandview']),
+
         'headerOptions' => ['class' => 'kartik-sheet-style'],
         'expandOneOnly' => true
     ],
@@ -44,8 +48,6 @@ $gridColumns = [
         'headerOptions'=>['class'=>'kv-sticky-column'],
         'contentOptions'=>['class'=>'kv-sticky-column'],
         'editableOptions'=>['header'=>'ИНН', 'size'=>'md'],
-        'xlFormat' => "\@",
-        'format' => ['text'],
     ],
     [
         'class' => '\kartik\grid\DataColumn',
@@ -137,7 +139,6 @@ $this->title = 'Регистрационые данные';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="reg-data-index">
-
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>

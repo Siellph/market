@@ -3,9 +3,11 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
-/* @var $this yii\web\View */
-/* @var $model app\models\OrganizationQuery */
-/* @var $form yii\widgets\ActiveForm */
+/**
+ * @var yii\web\View $this
+ * @var app\models\OrganizationQuery $model
+ * @var yii\widgets\ActiveForm $form
+ */
 ?>
 
 <div class="organization-search">
@@ -13,12 +15,7 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
         'method' => 'get',
-        'options' => [
-            'data-pjax' => 1
-        ],
     ]); ?>
-
-    <?= $form->field($model, 'id') ?>
 
     <?= $form->field($model, 'name') ?>
 
@@ -28,7 +25,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'director') ?>
 
-    <?php // echo $form->field($model, 'mesto_ustanovki') ?>
+    <?= $form->field($model, 'mesto_ustanovki') ?>
 
     <?php // echo $form->field($model, 'adress_ustanovki') ?>
 
@@ -36,7 +33,7 @@ use yii\widgets\ActiveForm;
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton('Reset', ['class' => 'btn btn-outline-secondary']) ?>
+        <?= Html::resetButton('Reset', ['class' => 'btn btn-default']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
