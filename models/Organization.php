@@ -15,7 +15,7 @@ use Yii;
  * @property string $adress_ustanovki Адрес установки
  * @property string $ofd ОФД
  *
- * @property RegData $inn0
+ * @property RegData[] $regDatas
  */
 class Organization extends \yii\db\ActiveRecord
 {
@@ -39,7 +39,6 @@ class Organization extends \yii\db\ActiveRecord
             [['adress', 'director', 'adress_ustanovki'], 'string', 'max' => 512],
             [['mesto_ustanovki'], 'string', 'max' => 64],
             [['inn'], 'unique'],
-            [['inn'], 'exist', 'skipOnError' => true, 'targetClass' => RegData::className(), 'targetAttribute' => ['inn' => 'inn']],
         ];
     }
 
@@ -60,12 +59,12 @@ class Organization extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[Inn0]].
+     * Gets query for [[RegDatas]].
      *
-     * @return \yii\db\ActiveQuery
+     * @return \yii\db\ActiveQuery|yii\db\ActiveQuery
      */
-    public function getInn0()
+    public function getRegDatas()
     {
-        return $this->hasOne(RegData::className(), ['inn' => 'inn']);
+        return $this->hasMany(RegData::className(), ['inn' => 'inn']);
     }
 }

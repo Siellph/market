@@ -4,12 +4,14 @@ use yii\helpers\Html;
 use kartik\widgets\ActiveForm;
 use kartik\builder\Form;
 use kartik\datecontrol\DateControl;
+use kartik\widgets\Select2;
 
 /**
  * @var yii\web\View $this
  * @var app\models\Organization $model
  * @var yii\widgets\ActiveForm $form
  */
+include_once "__bd_ofd.php"
 ?>
 
 <div class="organization-form">
@@ -35,11 +37,18 @@ use kartik\datecontrol\DateControl;
 
             'ofd' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter ОФД...', 'maxlength' => 256]],
 
+            'ofd' => ['type' => Form::INPUT_WIDGET, 'widgetClass' => Select2::className(), 'options' => [
+                'data' => $content_ofd,
+                'options' => ['placeholder' => 'Выберите ОФД из списка ...'],
+                'pluginOptions' => [
+                    'allowClear' => true
+                ]]], 
+
         ]
 
     ]);
 
-    echo Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'),
+    echo Html::submitButton($model->isNewRecord ? Yii::t('app', 'Сохранить') : Yii::t('app', 'Обновить'),
         ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']
     );
     ActiveForm::end(); ?>

@@ -4,9 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use app\models\RegData;
-use app\models\Organization;
 use app\models\RegDataQuery;
-use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -16,16 +14,13 @@ use yii\filters\VerbFilter;
  */
 class RegDataController extends Controller
 {
-    /**
-     * {@inheritdoc}
-     */
     public function behaviors()
     {
         return [
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'delete' => ['POST'],
+                    'delete' => ['post'],
                 ],
             ],
         ];
@@ -37,17 +32,12 @@ class RegDataController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new RegDataQuery();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $organization = new Organization();
-        // $dataProvider = new ActiveDataProvider([
-        //     'query' => RegData::find(),
-        // ]);
+        $searchModel = new RegDataQuery;
+        $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'organization' => $organization,
+            'searchModel' => $searchModel,
         ]);
     }
 
@@ -55,13 +45,16 @@ class RegDataController extends Controller
      * Displays a single RegData model.
      * @param integer $id
      * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionView($id)
     {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
+        $model = $this->findModel($id);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
+        } else {
+            return $this->render('view', ['model' => $model]);
+        }
     }
 
     /**
@@ -71,15 +64,15 @@ class RegDataController extends Controller
      */
     public function actionCreate()
     {
-        $model = new RegData();
+        $model = new RegData;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
+        } else {
+            return $this->render('create', [
+                'model' => $model,
+            ]);
         }
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
     }
 
     /**
@@ -87,7 +80,6 @@ class RegDataController extends Controller
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionUpdate($id)
     {
@@ -95,11 +87,11 @@ class RegDataController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
+        } else {
+            return $this->render('update', [
+                'model' => $model,
+            ]);
         }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
     }
 
     /**
@@ -107,7 +99,6 @@ class RegDataController extends Controller
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionDelete($id)
     {
@@ -127,8 +118,8 @@ class RegDataController extends Controller
     {
         if (($model = RegData::findOne($id)) !== null) {
             return $model;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
         }
-
-        throw new NotFoundHttpException('The requested page does not exist.');
     }
 }

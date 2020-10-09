@@ -1,13 +1,16 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
-use kartik\date\DatePicker;
+use kartik\widgets\ActiveForm;
+use kartik\builder\Form;
 use kartik\widgets\Select2;
+use kartik\date\DatePicker;
 
-/* @var $this yii\web\View */
-/* @var $model app\models\RegData */
-/* @var $form yii\widgets\ActiveForm */
+/**
+ * @var yii\web\View $this
+ * @var app\models\RegData $model
+ * @var yii\widgets\ActiveForm $form
+ */
 
 include_once "__bd_fn.php";
 include_once "__bd_kkt.php";
@@ -16,77 +19,80 @@ $content_status = [
     'В работе' => 'В работе',
     'Выполнено' => 'Выполнено'
 ];
-$param_status = ['prompt' => 'Выбрать необходимый'];
 
 $content_vid_raboti = [
     'Первичная регистрация' => 'Первичная регистрация',
     'Перерегистрация' => 'Перерегистрация'
 ];
-$param_vid_raboti = ['prompt' => 'Выбрать необходимый'];
+
 ?>
 
 <div class="reg-data-form">
-    <?php $form = ActiveForm::begin(); ?>
-<div class="col-md-4">
-    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'inn')->textInput(['maxlength' => true]) ?>
+    <?php $form = ActiveForm::begin(['type' => ActiveForm::TYPE_HORIZONTAL]); echo Form::widget([
 
-    <?= $form->field($model, 'adress')->textInput(['maxlength' => true]) ?>
+        'model' => $model,
+        'form' => $form,
+        'columns' => 1,
+        'attributes' => [
 
-    <?= $form->field($model, 'kkt')->widget(Select2::classname(), [
-    'data' => $content_kkt,
-    'options' => ['placeholder' => 'Выберите ККТ из списка ...'],
-    'pluginOptions' => [
-        'allowClear' => true
-    ]
-    ]); ?>
+            'name' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Наименование компании...', 'maxlength' => 256]],
 
-    <?= $form->field($model, 'zn_kkt')->textInput(['maxlength' => true]) ?>
-    </div>
-    <div class="col-md-4">
+            'inn' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'ИНН...', 'maxlength' => 12]],
 
-    <?= $form->field($model, 'fn')->widget(Select2::classname(), [
-    'data' => $content_fn,
-    'options' => ['placeholder' => 'Выберите ФН из списка ...'],
-    'pluginOptions' => [
-        'allowClear' => true
-    ]
-    ]); ?>
+            'adress' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Юридический адрес...', 'maxlength' => 512]],
 
-    <?= $form->field($model, 'zn_fn')->textInput(['maxlength' => true]) ?>
+            'kkt' => ['type' => Form::INPUT_WIDGET, 'widgetClass' => Select2::className(), 'options' => [
+                'data' => $content_kkt,
+                'options' => ['placeholder' => 'Выберите ККТ из списка ...'],
+                'pluginOptions' => [
+                    'allowClear' => true
+                ]]], 
+                // 'options' => ['placeholder' => 'Марка/модель ККТ...', 'maxlength' => 256]],
 
-    <?= $form->field($model, 'rnm')->textInput(['maxlength' => true]) ?>
+            'zn_kkt' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Заводской номер ККТ...', 'maxlength' => 32]],
 
-    <?= $form->field($model, 'licens')->textInput(['maxlength' => true]) ?>
- 
-    <?= $form->field($model, 'proshivka')->widget(DatePicker::classname(), [
-    'options' => ['placeholder' => 'Выберите дату'],
-    'pluginOptions' => [
-        'autoclose'=>true,
-        'format' => 'yyyy-mm-dd'
-    ]
-]); ?>
+            'fn' => ['type' => Form::INPUT_WIDGET, 'widgetClass' => Select2::className(), 'options' => [
+                'data' => $content_fn,
+                'options' => ['placeholder' => 'Выберите ФН из списка ...'],
+                'pluginOptions' => [
+                    'allowClear' => true
+                ]]],
 
-    </div>
-  <div class="col-md-4">
-  <?= $form->field($model, 'vid_raboti')->dropDownList($content_vid_raboti, $param_vid_raboti)?>
+            'zn_fn' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Заводской номер ФН...', 'maxlength' => 32]],
 
-    <?= $form->field($model, 'date_reg')->widget(DatePicker::classname(), [
-    'options' => ['placeholder' => 'Выберите дату'],
-    'pluginOptions' => [
-        'autoclose'=>true,
-        'format' => 'yyyy-mm-dd',
-        'todayHighlight' => true
-    ]
-]); ?>
+            'rnm' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'РНМ...', 'maxlength' => 16]],
 
-    <?= $form->field($model, 'status')->dropDownList($content_status, $param_status)?>
+            'licens' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Лицензия...', 'maxlength' => 64]],
 
-    <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
-    </div>
-    </div>
-    <?php ActiveForm::end(); ?>
+            'proshivka' => ['type' => Form::INPUT_WIDGET, 'widgetClass' => DatePicker::classname(),'options' => [
+                'options' => ['placeholder' => 'Выберите дату'],
+                'pluginOptions' => [
+                    'autoclose'=>true,
+                    'format' => 'yyyy-m-dd'
+                ]
+            ]],
+
+            'vid_raboti' => ['type' => Form::INPUT_DROPDOWN_LIST, 'items' => $content_vid_raboti],
+
+            'date_reg' => ['type' => Form::INPUT_WIDGET, 'widgetClass' => DatePicker::classname(),'options' => [
+                'options' => ['placeholder' => 'Выберите дату'],
+                'pluginOptions' => [
+                    'autoclose'=>true,
+                    'format' => 'yyyy-m-dd',
+                    'todayHighlight' => true
+                ]
+            ]],
+
+            'status' => ['type' => Form::INPUT_DROPDOWN_LIST, 'items' => $content_status],
+
+        ]
+
+    ]);
+
+    echo Html::submitButton($model->isNewRecord ? Yii::t('app', 'Сохранить') : Yii::t('app', 'Обновить'),
+        ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']
+    );
+    ActiveForm::end(); ?>
 
 </div>

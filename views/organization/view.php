@@ -17,17 +17,19 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="page-header">
         <h1><?= Html::encode($this->title) ?></h1>
     </div>
-
+    <p>
+        <?= Html::a('Обновить', ['update', 'id' => $model->inn], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Удалить', ['delete', 'id' => $model->inn], [
+            'class' => 'btn btn-danger',
+            'data' => [
+                'confirm' => 'Вы уверены, что хотите удалить данную запись?',
+                'method' => 'post',
+            ],
+        ]) ?>
+    </p>
 
     <?= DetailView::widget([
         'model' => $model,
-        'condensed' => false,
-        'hover' => true,
-        'mode' => Yii::$app->request->get('edit') == 't' ? DetailView::MODE_EDIT : DetailView::MODE_VIEW,
-        'panel' => [
-            'heading' => $this->title,
-            'type' => DetailView::TYPE_INFO,
-        ],
         'attributes' => [
             'name',
             'inn',
@@ -37,10 +39,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'adress_ustanovki',
             'ofd',
         ],
-        'deleteOptions' => [
-            'url' => ['delete', 'id' => $model->inn],
-        ],
-        'enableEditMode' => true,
     ]) ?>
 
 </div>

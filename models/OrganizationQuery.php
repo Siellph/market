@@ -37,6 +37,37 @@ class OrganizationQuery extends Organization
             return $dataProvider;
         }
 
+        $query->andFilterWhere([
+            'inn' => $this->inn,
+        ]);
+
+        $query->andFilterWhere(['like', 'name', $this->name])
+            ->andFilterWhere(['like', 'inn', $this->inn])
+            ->andFilterWhere(['like', 'adress', $this->adress])
+            ->andFilterWhere(['like', 'director', $this->director])
+            ->andFilterWhere(['like', 'mesto_ustanovki', $this->mesto_ustanovki])
+            ->andFilterWhere(['like', 'adress_ustanovki', $this->adress_ustanovki])
+            ->andFilterWhere(['like', 'ofd', $this->ofd]);
+
+        return $dataProvider;
+    }
+
+    public function searchExp($params)
+    {
+        $query = Organization::find();
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        // if (($this->load($params) && $this->validate())) {
+        //     return $dataProvider;
+        // }
+
+        $query->andFilterWhere([
+            'inn' => $this->inn,
+        ]);
+
         $query->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like', 'inn', $this->inn])
             ->andFilterWhere(['like', 'adress', $this->adress])

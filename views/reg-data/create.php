@@ -2,18 +2,19 @@
 
 use yii\helpers\Html;
 
-/* @var $this yii\web\View */
-/* @var $model app\models\RegData */
+/**
+ * @var yii\web\View $this
+ * @var app\models\RegData $model
+ */
 
 $this->title = 'Добавить регистрационные данные';
-$this->params['breadcrumbs'][] = ['label' => 'Регистрациооные данные', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Регистрационные данные', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-
-<div class="reg-data-create">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
+<div class="reg-data-create container">
+    <div class="page-header">
+        <h1><?= Html::encode($this->title) ?></h1>
+    </div>
     <?= $this->render('_form', [
         'model' => $model,
     ]) ?>

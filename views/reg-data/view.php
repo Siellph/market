@@ -1,31 +1,33 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\DetailView;
+use kartik\detail\DetailView;
+use kartik\datecontrol\DateControl;
 
-/* @var $this yii\web\View */
-/* @var $model app\models\RegData */
+/**
+ * @var yii\web\View $this
+ * @var app\models\RegData $model
+ */
 
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Регистрационные данные', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
-\yii\web\YiiAsset::register($this);
 ?>
-<div class="col-md-4"></div>
-<div class="reg-data-view col-md-4">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
+<div class="reg-data-view container">
+    <div class="page-header">
+        <h1><?= Html::encode($this->title) ?></h1>
+        <p>
         <?= Html::a('Обновить', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Удалить', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Вы действительно хотите удалить данную запись?',
+                'confirm' => 'Вы уверены, что хотите удалить данную запись?',
                 'method' => 'post',
             ],
         ]) ?>
     </p>
+    </div>
+
 
     <?= DetailView::widget([
         'model' => $model,

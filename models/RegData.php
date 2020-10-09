@@ -16,7 +16,7 @@ use Yii;
  * @property string $fn Наименование ФН
  * @property string $zn_fn Заводской номер ФН
  * @property string|null $rnm Регистрационный номер машины
- * @property string $licens Лицензия
+ * @property string|null $licens Лицензия
  * @property string|null $proshivka Прошивка
  * @property string $vid_raboti Вид работы
  * @property string $date_reg Дата регистрации
@@ -38,7 +38,7 @@ class RegData extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'adress', 'kkt', 'zn_kkt', 'fn', 'zn_fn', 'licens', 'vid_raboti', 'date_reg'], 'required'],
+            [['name', 'adress', 'kkt', 'zn_kkt', 'fn', 'zn_fn', 'vid_raboti', 'date_reg'], 'required'],
             [['proshivka', 'date_reg'], 'safe'],
             [['name', 'kkt'], 'string', 'max' => 256],
             [['inn'], 'string', 'max' => 12],
@@ -59,11 +59,11 @@ class RegData extends \yii\db\ActiveRecord
             'id' => 'ID',
             'name' => 'Наименование компании',
             'inn' => 'ИНН',
-            'adress' => 'Юридический адрес',
+            'adress' => 'Адрес',
             'kkt' => 'Марка/модель ККТ',
-            'zn_kkt' => 'Заводской номер ККТ',
+            'zn_kkt' => 'ЗН ККТ',
             'fn' => 'Наименование ФН',
-            'zn_fn' => 'Заводской номер ФН',
+            'zn_fn' => 'ЗН ФН',
             'rnm' => 'РНМ',
             'licens' => 'Лицензия',
             'proshivka' => 'Прошивка',
@@ -71,10 +71,5 @@ class RegData extends \yii\db\ActiveRecord
             'date_reg' => 'Дата регистрации',
             'status' => 'Статус',
         ];
-    }
-
-    public function getOrganizations()
-    {
-        return $this->hasMany(Organization::className(), ['inn' => 'inn']);
     }
 }

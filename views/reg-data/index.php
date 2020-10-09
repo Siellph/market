@@ -4,10 +4,14 @@ use app\controllers\OrganizationController;
 use yii\helpers\Html;
 use kartik\grid\GridView;
 use yii\widgets\Pjax;
-use yii\helpers\Url;
-
-/* @var $this yii\web\View */
-/* @var $dataProvider yii\data\ActiveDataProvider */
+use app\models\OrganizationQuery;
+use app\models\Organization;
+use yii\web\NotFoundHttpException;
+/**
+ * @var yii\web\View $this
+ * @var yii\data\ActiveDataProvider $dataProvider
+ * @var app\models\RegDataQuery $searchModel
+ */
 
 $gridColumns = [
     [
@@ -25,16 +29,19 @@ $gridColumns = [
             return GridView::ROW_COLLAPSED;
         },
 
-    //  'detail' => function ($model, $key, $index, $column) {
-    //     return Yii::$app->controller->render('../organization/_expandview', ['model' => $model]);
-    // },
+     'detail' => function ($model, $key, $index, $column) {
 
-    'detailUrl' => Url::to(['../OrganizationController/Expandview']),
-
+        $searchModel = new OrganizationQuery;
+        $searchModel -> inn = $model -> inn;
+        $dataProvider = $searchModel->searchExp(Yii::$app->request->getQueryParams());
+        return Yii::$app->controller->renderPartial('expandview', [
+            'dataProvider' => $dataProvider,
+            'searchModel' => $searchModel,
+        ]);
+    },
         'headerOptions' => ['class' => 'kartik-sheet-style'],
         'expandOneOnly' => true
     ],
-
     [
         'attribute' => 'name',
         'vAlign'=>'middle',
@@ -132,71 +139,34 @@ $gridColumns = [
         'dropdown' => true,
         'vAlign'=>'middle',
     ],
+
+    // [
+    //     'class' => 'kartik\grid\ActionColumn',
+    //             'vAlign'=>'middle',
+    //         ],
     ['class' => 'kartik\grid\CheckboxColumn']
 ];
 
-$this->title = 'Регистрационые данные';
+$this->title = 'Регистрационные данные';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="reg-data-index">
-    <h1><?= Html::encode($this->title) ?></h1>
+<div class="reg-data-index col-12">
+    <div class="page-header">
+        <h1><?= Html::encode($this->title) ?></h1>
+    </div>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Добавить', ['create'], ['class' => 'btn btn-success']) ?>
+        <?php /* echo Html::a('Create Reg Data', ['create'], ['class' => 'btn btn-success'])*/  ?>
     </p>
 
-    <?php Pjax::begin(); ?>
-
-    <?= GridView::widget([
-    'dataProvider' => $dataProvider,
-    'filterModel' => $searchModel,
-    'autoXlFormat' => true,
-    'columns' => $gridColumns,
-    'containerOptions' => ['style'=>'overflow: auto'], // only set when $responsive = false
-    'toolbar' =>  [
-        '{export}',
-        '{toggleData}'
-    ],
-    'pjax' => true,
-    'export' => [
-        'fontAwesome' => false,
-    ],
-    'bordered' => true,
-    'striped' => true,
-    'condensed' => true,
-    'responsive' => true,
-    'hover' => true,
-    'floatHeader' => true,
-    // 'floatHeaderOptions' => ['top' => $scrollingTop],
-    'showPageSummary' => false,
-    'panel' => [
-        'type' => GridView::TYPE_PRIMARY
-    ],
-]);
-
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // GridView::widget([
-        // 'dataProvider' => $dataProvider,
-        // 'filterModel' => $searchModel,
-        // 'columns' => $gridColumns,
-        // 'toolbar' => [
-        //     [
-        //         'content'=>
-        //             Html::button('<i class="glyphicon glyphicon-plus"></i>', [
-        //                 'type'=>'button', 
-        //                 'title'=>Yii::t('kvgrid', 'Add Book'), 
-        //                 'class'=>'btn btn-success'
-        //             ]) . ' '.
-        //             Html::a('<i class="fas fa-redo"></i>', ['grid-demo'], [
-        //                 'class' => 'btn btn-secondary', 
-        //                 'title' => Yii::t('kvgrid', 'Reset Grid')
-        //             ]),
-        //     ],
-        //     '{export}',
-        //     '{toggleData}'
-        // ],
-        // [
+    <?php Pjax::begin(); 
+    echo GridView::widget([
+        'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
+        'autoXlFormat' => true,
+        'columns' => $gridColumns,
+        // 'columns' => [
         //     ['class' => 'yii\grid\SerialColumn'],
 
         //     // 'id',
@@ -204,37 +174,48 @@ $this->params['breadcrumbs'][] = $this->title;
         //     'inn',
         //     'adress',
         //     'kkt',
-        //     'zn_kkt',
-        //     'fn',
-        //     'zn_fn',
-        //     'rnm',
-        //     'licens',
-        //     'proshivka',
-        //     'vid_raboti',
-        //     'date_reg',
-        //     'status',
+        //    'zn_kkt', 
+        //    'fn', 
+        //    'zn_fn', 
+        //    'rnm', 
+        //    'licens',
+        //    'proshivka',
+        // //    ['attribute' => 'proshivka','format' => ['date',(isset(Yii::$app->modules['datecontrol']['displaySettings']['date'])) ? Yii::$app->modules['datecontrol']['displaySettings']['date'] : 'Y-m-d']], 
+        //    'vid_raboti',
+        //    'date_reg',
+        // //    ['attribute' => 'date_reg','format' => ['date',(isset(Yii::$app->modules['datecontrol']['displaySettings']['date'])) ? Yii::$app->modules['datecontrol']['displaySettings']['date'] : 'Y-m-d']], 
+        //    'status', 
 
-        //     ['class' => 'yii\grid\ActionColumn'],
+        //     [
+        //         'class' => 'yii\grid\ActionColumn',
+        //         'buttons' => [
+        //             'update' => function ($url, $model) {
+        //                 return Html::a('<span class="glyphicon glyphicon-pencil"></span>',
+        //                     Yii::$app->urlManager->createUrl(['reg-data/view', 'id' => $model->id, 'edit' => 't']),
+        //                     ['title' => Yii::t('yii', 'Edit'),]
+        //                 );
+        //             }
+        //         ],
+        //     ],
         // ],
-    //     'resizableColumns'=>true,
-    //     'resizeStorageKey'=>Yii::$app->user->id . '-' . date("m")
-    // ]); 
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    
-    ?>
-
-    <?php Pjax::end(); ?>
+        'containerOptions' => ['style'=>'overflow: auto'],
+        'pjax' => true,
+        'export' => [
+            'fontAwesome' => false,
+        ],
+        'responsive' => true,
+        'hover' => true,
+        'condensed' => true,
+        'floatHeader' => true,
+        'bordered' => true,
+        'striped' => true,
+        'panel' => [
+            'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-th-list"></i> '.Html::encode($this->title).' </h3>',
+            'type' => 'info',
+            'before' => Html::a('<i class="glyphicon glyphicon-plus"></i> Добавить', ['create'], ['class' => 'btn btn-success']),
+            'after' => Html::a('<i class="glyphicon glyphicon-repeat"></i> Обновить', ['index'], ['class' => 'btn btn-info']),
+            'showFooter' => false
+        ],
+    ]); Pjax::end(); ?>
 
 </div>
-
-
-<!-- <li class="select2-results__option" role="group" aria-label="АО  «КОНЦЕРН «АВТОМАТИКА»">
-    <strong class="select2-results__group">
-        АО «КОНЦЕРН «АВТОМАТИКА»
-    </strong>
-    <ul class="select2-results__options select2-results__options--nested">
-        <li class="select2-results__option" id="select2-fn_model_select-result-0tj0-0019" role="treeitem" aria-selected="false">
-            Шифровальное (криптографическое) средство защиты фискальных данных фискальный накопитель «ФН-1.1» исполнение Ав36-2
-        </li>
-    </ul>
-</li> -->

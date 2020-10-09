@@ -3,9 +3,11 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
-/* @var $this yii\web\View */
-/* @var $model app\models\RegDataQuery */
-/* @var $form yii\widgets\ActiveForm */
+/**
+ * @var yii\web\View $this
+ * @var app\models\RegDataQuery $model
+ * @var yii\widgets\ActiveForm $form
+ */
 ?>
 
 <div class="reg-data-search">
@@ -13,9 +15,6 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
         'method' => 'get',
-        'options' => [
-            'data-pjax' => 1
-        ],
     ]); ?>
 
     <?= $form->field($model, 'id') ?>
@@ -48,7 +47,7 @@ use yii\widgets\ActiveForm;
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton('Reset', ['class' => 'btn btn-outline-secondary']) ?>
+        <?= Html::resetButton('Reset', ['class' => 'btn btn-default']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

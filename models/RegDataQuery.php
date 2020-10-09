@@ -2,18 +2,16 @@
 
 namespace app\models;
 
+use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\RegData;
 
 /**
- * RegDataQuery represents the model behind the search form of `app\models\RegData`.
+ * RegDataQuery represents the model behind the search form about `app\models\RegData`.
  */
 class RegDataQuery extends RegData
 {
-    /**
-     * {@inheritdoc}
-     */
     public function rules()
     {
         return [
@@ -22,41 +20,57 @@ class RegDataQuery extends RegData
         ];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
         return Model::scenarios();
     }
 
-    /**
-     * Creates data provider instance with search query applied
-     *
-     * @param array $params
-     *
-     * @return ActiveDataProvider
-     */
     public function search($params)
     {
         $query = RegData::find();
-
-        // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
 
-        $this->load($params);
-
-        if (!$this->validate()) {
-            // uncomment the following line if you do not want to return any records when validation fails
-            // $query->where('0=1');
+        if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
         }
 
-        // grid filtering conditions
+        $query->andFilterWhere([
+            'id' => $this->id,
+            'proshivka' => $this->proshivka,
+            'date_reg' => $this->date_reg,
+        ]);
+
+        $query->andFilterWhere(['like', 'name', $this->name])
+            ->andFilterWhere(['like', 'inn', $this->inn])
+            ->andFilterWhere(['like', 'adress', $this->adress])
+            ->andFilterWhere(['like', 'kkt', $this->kkt])
+            ->andFilterWhere(['like', 'zn_kkt', $this->zn_kkt])
+            ->andFilterWhere(['like', 'fn', $this->fn])
+            ->andFilterWhere(['like', 'zn_fn', $this->zn_fn])
+            ->andFilterWhere(['like', 'rnm', $this->rnm])
+            ->andFilterWhere(['like', 'licens', $this->licens])
+            ->andFilterWhere(['like', 'vid_raboti', $this->vid_raboti])
+            ->andFilterWhere(['like', 'status', $this->status]);
+
+        return $dataProvider;
+    }
+
+    public function searchExp($params)
+    {
+        $query = RegData::find();
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        // if (!($this->load($params) && $this->validate())) {
+        //     return $dataProvider;
+        // }
+
         $query->andFilterWhere([
             'id' => $this->id,
             'proshivka' => $this->proshivka,
