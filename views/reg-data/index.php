@@ -93,8 +93,7 @@ $gridColumns = [
         'attribute'=>'licens',
         'editableOptions'=>[
             'formOptions' => ['action' => ['/reg-data/editlicens']],
-            'placement' => PopoverX::ALIGN_AUTO_BOTTOM,
-            'header'=>'Лицензия',
+            'placement' => PopoverX::ALIGN_AUTO_LEFT,
             'inputType'=>\kartik\editable\Editable::INPUT_TEXT,
         ],
         'hAlign'=>'center',
@@ -126,8 +125,7 @@ $gridColumns = [
         'filter' => ['Выполнено' => 'Выполнено', 'В работе' => 'В работе'],
         'editableOptions'=>[
             'formOptions' => ['action' => ['/reg-data/editstatus']],
-            'placement' => PopoverX::ALIGN_AUTO_BOTTOM,
-            'header'=>'Статус',
+            'placement' => PopoverX::ALIGN_AUTO_LEFT,
             'inputType'=>\kartik\editable\Editable::INPUT_SELECT2,
             'options'=>[
                 'data' => [
