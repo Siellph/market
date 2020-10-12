@@ -1,12 +1,12 @@
 <?php
 
-use app\controllers\OrganizationController;
+
 use yii\helpers\Html;
 use kartik\grid\GridView;
 use yii\widgets\Pjax;
 use app\models\OrganizationQuery;
-use app\models\Organization;
-use yii\web\NotFoundHttpException;
+use kartik\popover\PopoverX;
+
 /**
  * @var yii\web\View $this
  * @var yii\data\ActiveDataProvider $dataProvider
@@ -45,106 +45,110 @@ $gridColumns = [
     [
         'attribute' => 'name',
         'vAlign'=>'middle',
-        'headerOptions'=>['class'=>'kv-sticky-column'],
-        'contentOptions'=>['class'=>'kv-sticky-column'],
     ],
     [
-        'class' => 'kartik\grid\EditableColumn',
         'attribute' => 'inn',
         'vAlign'=>'middle',
         'headerOptions'=>['class'=>'kv-sticky-column'],
         'contentOptions'=>['class'=>'kv-sticky-column'],
-        'editableOptions'=>['header'=>'ИНН', 'size'=>'md'],
     ],
     [
-        'class' => '\kartik\grid\DataColumn',
         'attribute' => 'adress',
         'vAlign'=>'middle',
         'headerOptions'=>['class'=>'kv-sticky-column'],
         'contentOptions'=>['class'=>'kv-sticky-column'],
     ],
-            [
-                'class' => '\kartik\grid\DataColumn',
-                'attribute' => 'kkt',
-                'vAlign'=>'middle',
-                'headerOptions'=>['class'=>'kv-sticky-column'],
-                'contentOptions'=>['class'=>'kv-sticky-column'],
-            ],
-            [
-                'class' => '\kartik\grid\DataColumn',
-                'attribute' => 'zn_kkt',
-                'vAlign'=>'middle',
-                'headerOptions'=>['class'=>'kv-sticky-column'],
-                'contentOptions'=>['class'=>'kv-sticky-column'],
-                'xlFormat' => "\@",
-                'format' => ['text'],
-            ],
-            [
-                'class' => '\kartik\grid\DataColumn',
-                'attribute' => 'fn',
-                'vAlign'=>'middle',
-                'headerOptions'=>['class'=>'kv-sticky-column'],
-                'contentOptions'=>['class'=>'kv-sticky-column']
-            ],
-            [
-                'class' => '\kartik\grid\DataColumn',
-                'attribute' => 'zn_fn',
-                'vAlign'=>'middle',
-                'headerOptions'=>['class'=>'kv-sticky-column'],
-                'contentOptions'=>['class'=>'kv-sticky-column'],
-                'xlFormat' => "\@",
-                'format' => ['text'],
-            ],
-            [
-                'class' => '\kartik\grid\DataColumn',
-                'attribute' => 'rnm',
-                'vAlign'=>'middle',
-                'headerOptions'=>['class'=>'kv-sticky-column'],
-                'contentOptions'=>['class'=>'kv-sticky-column'],
-                'xlFormat' => "\@",
-                'format' => ['text'],
-            ],
-            [
-                'attribute' => 'licens',
-                'vAlign'=>'middle',
-                'headerOptions'=>['class'=>'kv-sticky-column'],
-                'contentOptions'=>['class'=>'kv-sticky-column'],
-            ],
-            [
-                'attribute' => 'proshivka',
-                'vAlign'=>'middle',
-                'headerOptions'=>['class'=>'kv-sticky-column'],
-                'contentOptions'=>['class'=>'kv-sticky-column'],
-            ],
-            [
-                'attribute' => 'vid_raboti',
-                'vAlign'=>'middle',
-                'headerOptions'=>['class'=>'kv-sticky-column'],
-                'contentOptions'=>['class'=>'kv-sticky-column'],
-            ],
-            [
-                'attribute' => 'date_reg',
-                'vAlign'=>'middle',
-                'headerOptions'=>['class'=>'kv-sticky-column'],
-                'contentOptions'=>['class'=>'kv-sticky-column'],
-            ],
-            [
-                'attribute' => 'status',
-                'vAlign'=>'middle',
-                'headerOptions'=>['class'=>'kv-sticky-column'],
-                'contentOptions'=>['class'=>'kv-sticky-column'],
-            ],
+    [
+        'attribute' => 'kkt',
+        'vAlign'=>'middle',
+        'headerOptions'=>['class'=>'kv-sticky-column'],
+        'contentOptions'=>['class'=>'kv-sticky-column'],
+    ],
+    [
+        'attribute' => 'zn_kkt',
+        'vAlign'=>'middle',
+        'headerOptions'=>['class'=>'kv-sticky-column'],
+        'contentOptions'=>['class'=>'kv-sticky-column'],
+    ],
+    [
+        'attribute' => 'fn',
+        'vAlign'=>'middle',
+        'headerOptions'=>['class'=>'kv-sticky-column'],
+        'contentOptions'=>['class'=>'kv-sticky-column']
+    ],
+    [
+        'attribute' => 'zn_fn',
+        'vAlign'=>'middle',
+        'headerOptions'=>['class'=>'kv-sticky-column'],
+        'contentOptions'=>['class'=>'kv-sticky-column'],
+    ],
+    [
+        'attribute' => 'rnm',
+        'vAlign'=>'middle',
+        'headerOptions'=>['class'=>'kv-sticky-column'],
+        'contentOptions'=>['class'=>'kv-sticky-column'],
+    ],
+    [
+        'class'=>'kartik\grid\EditableColumn',
+        'attribute'=>'licens',
+        'editableOptions'=>[
+            'formOptions' => ['action' => ['/reg-data/editlicens']],
+            'placement' => PopoverX::ALIGN_AUTO_BOTTOM,
+            'header'=>'Лицензия',
+            'inputType'=>\kartik\editable\Editable::INPUT_TEXT,
+        ],
+        'hAlign'=>'center',
+        'vAlign'=>'middle',
+        'format'=>['text'],
+        'pageSummary'=>true
+    ],
+    [
+        'attribute' => 'proshivka',
+        'vAlign'=>'middle',
+        'headerOptions'=>['class'=>'kv-sticky-column'],
+        'contentOptions'=>['class'=>'kv-sticky-column'],
+    ],
+    [
+        'attribute' => 'vid_raboti',
+        'vAlign'=>'middle',
+        'headerOptions'=>['class'=>'kv-sticky-column'],
+        'contentOptions'=>['class'=>'kv-sticky-column'],
+    ],
+    [
+        'attribute' => 'date_reg',
+        'vAlign'=>'middle',
+        'headerOptions'=>['class'=>'kv-sticky-column'],
+        'contentOptions'=>['class'=>'kv-sticky-column'],
+    ],
+    [   
+        'class'=>'kartik\grid\EditableColumn',
+        'attribute'=>'status',
+        'filter' => ['Выполнено' => 'Выполнено', 'В работе' => 'В работе'],
+        'editableOptions'=>[
+            'formOptions' => ['action' => ['/reg-data/editstatus']],
+            'placement' => PopoverX::ALIGN_AUTO_BOTTOM,
+            'header'=>'Статус',
+            'inputType'=>\kartik\editable\Editable::INPUT_SELECT2,
+            'options'=>[
+                'data' => [
+                    'Выполнено' => 'Выполнено',
+                    'В работе' => 'В работе'
+                ],
+                'class'=>'form-control',
+            ]
+        ],
+        'refreshGrid' => true,
+        'width' => '100px',
+        'vAlign'=>'middle',
+        'hAlign' => 'center',
+        'format'=>['text'],
+        'pageSummary'=>true
+    ],
     [
         'class' => 'kartik\grid\ActionColumn',
-        'dropdown' => true,
+        'dropdown' => false,
         'vAlign'=>'middle',
     ],
-
-    // [
-    //     'class' => 'kartik\grid\ActionColumn',
-    //             'vAlign'=>'middle',
-    //         ],
-    ['class' => 'kartik\grid\CheckboxColumn']
 ];
 
 $this->title = 'Регистрационные данные';
@@ -156,50 +160,18 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <p>
-        <?php /* echo Html::a('Create Reg Data', ['create'], ['class' => 'btn btn-success'])*/  ?>
-    </p>
-
     <?php Pjax::begin(); 
     echo GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'autoXlFormat' => true,
         'columns' => $gridColumns,
-        // 'columns' => [
-        //     ['class' => 'yii\grid\SerialColumn'],
-
-        //     // 'id',
-        //     'name',
-        //     'inn',
-        //     'adress',
-        //     'kkt',
-        //    'zn_kkt', 
-        //    'fn', 
-        //    'zn_fn', 
-        //    'rnm', 
-        //    'licens',
-        //    'proshivka',
-        // //    ['attribute' => 'proshivka','format' => ['date',(isset(Yii::$app->modules['datecontrol']['displaySettings']['date'])) ? Yii::$app->modules['datecontrol']['displaySettings']['date'] : 'Y-m-d']], 
-        //    'vid_raboti',
-        //    'date_reg',
-        // //    ['attribute' => 'date_reg','format' => ['date',(isset(Yii::$app->modules['datecontrol']['displaySettings']['date'])) ? Yii::$app->modules['datecontrol']['displaySettings']['date'] : 'Y-m-d']], 
-        //    'status', 
-
-        //     [
-        //         'class' => 'yii\grid\ActionColumn',
-        //         'buttons' => [
-        //             'update' => function ($url, $model) {
-        //                 return Html::a('<span class="glyphicon glyphicon-pencil"></span>',
-        //                     Yii::$app->urlManager->createUrl(['reg-data/view', 'id' => $model->id, 'edit' => 't']),
-        //                     ['title' => Yii::t('yii', 'Edit'),]
-        //                 );
-        //             }
-        //         ],
-        //     ],
-        // ],
         'containerOptions' => ['style'=>'overflow: auto'],
         'pjax' => true,
+        'pjaxSettings'=>[
+            'refreshGrid' => true,
+            'neverTimeout'=>true,
+            ],
         'export' => [
             'fontAwesome' => false,
         ],
@@ -212,8 +184,10 @@ $this->params['breadcrumbs'][] = $this->title;
         'panel' => [
             'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-th-list"></i> '.Html::encode($this->title).' </h3>',
             'type' => 'info',
-            'before' => Html::a('<i class="glyphicon glyphicon-plus"></i> Добавить', ['create'], ['class' => 'btn btn-success']),
-            'after' => Html::a('<i class="glyphicon glyphicon-repeat"></i> Обновить', ['index'], ['class' => 'btn btn-info']),
+            'before' => 
+            Html::a('<i class="glyphicon glyphicon-plus"></i>', ['create'], ['class' => 'btn btn-success'])
+            .' '.
+            Html::a('<i class="glyphicon glyphicon-repeat"></i>', ['index'], ['class' => 'btn btn-info']),
             'showFooter' => false
         ],
     ]); Pjax::end(); ?>

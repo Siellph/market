@@ -59,7 +59,7 @@ class RegDataQuery extends RegData
         return $dataProvider;
     }
 
-    public function searchExp($params)
+    public function searchExp()
     {
         $query = RegData::find();
 
