@@ -10,6 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use kartik\grid\EditableColumnAction;
 use yii\helpers\ArrayHelper;
+use yii\filters\AccessControl;
 
 /**
  * RegDataController implements the CRUD actions for RegData model.
@@ -19,10 +20,13 @@ class RegDataController extends Controller
     public function behaviors()
     {
         return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['post'],
+            'as AccessBehavior' => [
+                'class' => \developeruz\db_rbac\behaviors\AccessBehavior::className(),
+            ],
+    'verbs' => [
+        'class' => VerbFilter::className(),
+        'actions' => [
+            'delete' => ['post'],
                 ],
             ],
         ];
@@ -190,4 +194,5 @@ class RegDataController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
 }

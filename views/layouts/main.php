@@ -9,6 +9,7 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
+use app\models\User;
 
 AppAsset::register($this);
 ?>
@@ -28,38 +29,42 @@ AppAsset::register($this);
 
 <div class="wrap">
     <?php
-    NavBar::begin([
-        'brandLabel' => 'М.Код',
-        'brandUrl' => Yii::$app->homeUrl,
-        'options' => [
-            'class' => 'navbar-inverse navbar-fixed-top',
-        ],
-    ]);
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-right'],
-        'items' => [
-            // ['label' => 'Главная', 'url' => '#'],
-            ['label' => 'Меню', 
-                'items' => [
-            ['label' => 'Сведения о юр. лицах', 'url' => ['/organization/index']],
-            ['label' => 'Рег. данные', 'url' => ['/reg-data/index']],
-                ]],
-            // Yii::$app->user->isGuest ? (
-            //     ['label' => 'Войти', 'url' => ['/site/login']]
-            // ) : (
-            //     '<li>'
-            //     . Html::beginForm(['/site/logout'], 'post')
-            //     . Html::submitButton(
-            //         'Logout (' . Yii::$app->user->identity->username . ')',
-            //         ['class' => 'btn btn-link logout']
-            //     )
-            //     . Html::endForm()
-            //     . '</li>'
-            // )
-        ],
-    ]);
-    NavBar::end();
-    ?>
+NavBar::begin([
+    'brandLabel' => 'М.Код',
+    'brandUrl' => Yii::$app->homeUrl,
+    'options' => [
+        'class' => 'navbar-inverse navbar-fixed-top',
+    ],
+]);
+ 
+$menuItems = [];
+ 
+if (Yii::$app->user->isGuest) {
+    $menuItems[] = ['label' => 'Вход', 'url' => ['/site/login']];
+} else {
+    $menuItems[] = ['label' => 'Регистрационные данные', 'url' => ['/reg-data/index']];
+    $menuItems[] = ['label' => 'Организации', 'url' => ['/organization/index']];
+    $menuItems[] = ['label' => 'Новый пользователь', 'url' => ['/site/signup']];
+    $menuItems[] = ['label' => 'Все пользователи', 'url' => ['/users/index']];
+    $menuItems[] = ['label' => 'Управление ролями', 'url' => ['/permit/access/role']];
+    $menuItems[] = ['label' => 'Права доступа', 'url' => ['/permit/access/permission']];
+    $menuItems[] = '<li>'
+        . Html::beginForm(['/site/logout'], 'post')
+        . Html::submitButton(
+            'Logout (' . Yii::$app->user->identity->username . ')',
+            ['class' => 'btn btn-link logout']
+        )
+        . Html::endForm()
+        . '</li>';
+}
+ 
+echo Nav::widget([
+    'options' => ['class' => 'navbar-nav navbar-right'],
+    'items' => $menuItems,
+]);
+ 
+NavBar::end();
+?>
 
     <div class="container col-md-12">
         <?= Breadcrumbs::widget([

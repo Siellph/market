@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Окт 09 2020 г., 16:17
--- Версия сервера: 10.3.22-MariaDB
+-- Время создания: Окт 15 2020 г., 17:02
+-- Версия сервера: 8.0.19
 -- Версия PHP: 7.4.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -24,17 +24,122 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Структура таблицы `auth_assignment`
+--
+
+CREATE TABLE `auth_assignment` (
+  `item_name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `user_id` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` int DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Дамп данных таблицы `auth_assignment`
+--
+
+INSERT INTO `auth_assignment` (`item_name`, `user_id`, `created_at`) VALUES
+('admin', '1', 1602768418),
+('user', '3', 1602768688);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `auth_item`
+--
+
+CREATE TABLE `auth_item` (
+  `name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `type` smallint NOT NULL,
+  `description` text COLLATE utf8_unicode_ci,
+  `rule_name` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `data` blob,
+  `created_at` int DEFAULT NULL,
+  `updated_at` int DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Дамп данных таблицы `auth_item`
+--
+
+INSERT INTO `auth_item` (`name`, `type`, `description`, `rule_name`, `data`, `created_at`, `updated_at`) VALUES
+('admin', 1, 'Администратор', NULL, NULL, 1602758044, 1602769912),
+('organization', 2, 'Организации', NULL, NULL, 1602769498, 1602769498),
+('RegData/RegDataController/actionDelete', 2, 'Удаление регистрационной записи', NULL, NULL, 1602769896, 1602770201),
+('site/logout', 2, 'Выход из системы', NULL, NULL, 1602769771, 1602769771),
+('user', 1, 'Пользователь', NULL, NULL, 1602762408, 1602762408),
+('users/index', 2, 'Пользователи', NULL, NULL, 1602768503, 1602768735);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `auth_item_child`
+--
+
+CREATE TABLE `auth_item_child` (
+  `parent` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `child` varchar(64) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Дамп данных таблицы `auth_item_child`
+--
+
+INSERT INTO `auth_item_child` (`parent`, `child`) VALUES
+('admin', 'organization'),
+('admin', 'RegData/RegDataController/actionDelete'),
+('admin', 'site/logout'),
+('admin', 'users/index');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `auth_rule`
+--
+
+CREATE TABLE `auth_rule` (
+  `name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `data` blob,
+  `created_at` int DEFAULT NULL,
+  `updated_at` int DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `migration`
+--
+
+CREATE TABLE `migration` (
+  `version` varchar(180) NOT NULL,
+  `apply_time` int DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Дамп данных таблицы `migration`
+--
+
+INSERT INTO `migration` (`version`, `apply_time`) VALUES
+('m000000_000000_base', 1602738948),
+('m140506_102106_rbac_init', 1602757229),
+('m170907_052038_rbac_add_index_on_auth_assignment_user_id', 1602757229),
+('m180523_151638_rbac_updates_indexes_without_prefix', 1602757230),
+('m200409_110543_rbac_update_mssql_trigger', 1602757230),
+('m201015_050832_create_user_table', 1602738954);
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `organization`
 --
 
 CREATE TABLE `organization` (
-  `name` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Наименование организации',
-  `inn` varchar(12) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'ИНН',
-  `adress` varchar(512) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Юридический адрес',
-  `director` varchar(512) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Должность и руководитель',
-  `mesto_ustanovki` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Место установки',
-  `adress_ustanovki` varchar(512) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Адрес установки',
-  `ofd` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'ОФД'
+  `name` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Наименование организации',
+  `inn` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'ИНН',
+  `adress` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Юридический адрес',
+  `director` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Должность и руководитель',
+  `mesto_ustanovki` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Место установки',
+  `adress_ustanovki` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Адрес установки',
+  `ofd` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'ОФД'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -60,20 +165,20 @@ INSERT INTO `organization` (`name`, `inn`, `adress`, `director`, `mesto_ustanovk
 --
 
 CREATE TABLE `reg_data` (
-  `id` int(11) NOT NULL,
-  `name` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Наименование компании',
-  `inn` varchar(12) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'ИНН',
-  `adress` varchar(512) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Юридический адрес',
-  `kkt` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Марка/модель ККТ',
-  `zn_kkt` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Заводской номер ККТ',
-  `fn` varchar(512) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Наименование ФН',
-  `zn_fn` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Заводской номер ФН',
-  `rnm` varchar(16) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Регистрационный номер машины',
-  `licens` varchar(64) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Лицензия',
-  `proshivka` date DEFAULT current_timestamp() COMMENT 'Прошивка',
-  `vid_raboti` varchar(128) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Вид работы',
+  `id` int NOT NULL,
+  `name` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Наименование компании',
+  `inn` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'ИНН',
+  `adress` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Юридический адрес',
+  `kkt` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Марка/модель ККТ',
+  `zn_kkt` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Заводской номер ККТ',
+  `fn` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Наименование ФН',
+  `zn_fn` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Заводской номер ФН',
+  `rnm` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Регистрационный номер машины',
+  `licens` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Лицензия',
+  `proshivka` date NOT NULL COMMENT 'Прошивка',
+  `vid_raboti` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Вид работы',
   `date_reg` date NOT NULL COMMENT 'Дата регистрации',
-  `status` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'В работе' COMMENT 'Статус'
+  `status` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'В работе' COMMENT 'Статус'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -104,9 +209,69 @@ INSERT INTO `reg_data` (`id`, `name`, `inn`, `adress`, `kkt`, `zn_kkt`, `fn`, `z
 (24, 'ООО \"РЕОН\"', '5902834187', 'ПК, Сива, Комсомольская. 6', 'РР-03Ф', '0115940014000867', 'Шифровальное (криптографическое) средство защиты фискальных данных фискальный накопитель «ФН-1.1» исполнение Из15-2', '9285440300296812', '0004794146064892', '', '2020-05-07', 'Первичная регистрация', '2020-10-06', 'Выполнено'),
 (25, 'ООО «РЕОН»', '5902834187', 'ПК, Сива, Комсомольская. 6', 'РР-03Ф', '0254660014000868', 'Шифровальное (криптографическое) средство защиты фискальных данных фискальный накопитель «ФН-1.1» исполнение Из15-2', '9285440300296834', '0004794165018958', '', '2020-05-07', 'Первичная регистрация', '2020-10-06', 'Выполнено');
 
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `user`
+--
+
+CREATE TABLE `user` (
+  `id` int NOT NULL,
+  `username` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `auth_key` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `password_hash` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `password_reset_token` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `status` smallint NOT NULL DEFAULT '10',
+  `created_at` int NOT NULL,
+  `updated_at` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Дамп данных таблицы `user`
+--
+
+INSERT INTO `user` (`id`, `username`, `auth_key`, `password_hash`, `password_reset_token`, `email`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'admin', '9jN6RHDtIN0ljTsgcFP9KxejoJTB_5gP', '$2y$13$wTDcx/hJDnlExrEthstTSeAm3CQrOGRSpz8nptpUwjysNsEBl5IpO', NULL, 'gordin@mkod.ru', 10, 1602739363, 1602761868),
+(3, 'user', 'j3FPdYwlNvAP71nY0UQa8CZPtM4I-VoG', '$2y$13$3wPcYrfNyNSzfMYty6TGNe5wRZ7EgkviJy1QiO9.m.xBUbj.JguyS', NULL, 'user@user.ru', 10, 1602768653, 1602768653);
+
 --
 -- Индексы сохранённых таблиц
 --
+
+--
+-- Индексы таблицы `auth_assignment`
+--
+ALTER TABLE `auth_assignment`
+  ADD PRIMARY KEY (`item_name`,`user_id`),
+  ADD KEY `idx-auth_assignment-user_id` (`user_id`);
+
+--
+-- Индексы таблицы `auth_item`
+--
+ALTER TABLE `auth_item`
+  ADD PRIMARY KEY (`name`),
+  ADD KEY `rule_name` (`rule_name`),
+  ADD KEY `idx-auth_item-type` (`type`);
+
+--
+-- Индексы таблицы `auth_item_child`
+--
+ALTER TABLE `auth_item_child`
+  ADD PRIMARY KEY (`parent`,`child`),
+  ADD KEY `child` (`child`);
+
+--
+-- Индексы таблицы `auth_rule`
+--
+ALTER TABLE `auth_rule`
+  ADD PRIMARY KEY (`name`);
+
+--
+-- Индексы таблицы `migration`
+--
+ALTER TABLE `migration`
+  ADD PRIMARY KEY (`version`);
 
 --
 -- Индексы таблицы `organization`
@@ -121,6 +286,15 @@ ALTER TABLE `reg_data`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Индексы таблицы `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `username` (`username`),
+  ADD UNIQUE KEY `email` (`email`),
+  ADD UNIQUE KEY `password_reset_token` (`password_reset_token`);
+
+--
 -- AUTO_INCREMENT для сохранённых таблиц
 --
 
@@ -128,7 +302,36 @@ ALTER TABLE `reg_data`
 -- AUTO_INCREMENT для таблицы `reg_data`
 --
 ALTER TABLE `reg_data`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+
+--
+-- AUTO_INCREMENT для таблицы `user`
+--
+ALTER TABLE `user`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- Ограничения внешнего ключа сохраненных таблиц
+--
+
+--
+-- Ограничения внешнего ключа таблицы `auth_assignment`
+--
+ALTER TABLE `auth_assignment`
+  ADD CONSTRAINT `auth_assignment_ibfk_1` FOREIGN KEY (`item_name`) REFERENCES `auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Ограничения внешнего ключа таблицы `auth_item`
+--
+ALTER TABLE `auth_item`
+  ADD CONSTRAINT `auth_item_ibfk_1` FOREIGN KEY (`rule_name`) REFERENCES `auth_rule` (`name`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+--
+-- Ограничения внешнего ключа таблицы `auth_item_child`
+--
+ALTER TABLE `auth_item_child`
+  ADD CONSTRAINT `auth_item_child_ibfk_1` FOREIGN KEY (`parent`) REFERENCES `auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `auth_item_child_ibfk_2` FOREIGN KEY (`child`) REFERENCES `auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

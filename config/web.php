@@ -58,8 +58,11 @@ $config = [
                     'class' => 'yii\i18n\PhpMessageSource',
                     'basePath' => '@vendor/kartik-v/yii2-grid/messages',
                 ],
-          ],
-     ],
+            ],
+        ],
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager',
+        ],
     ],
     'modules' => [
         'gridview' =>  [
@@ -69,6 +72,12 @@ $config = [
              // message source
              // 'downloadAction' => 'gridview/export/download',
              // 'i18n' => []
+        ],
+        'permit' => [
+            'class' => 'developeruz\db_rbac\Yii2DbRbac',
+            'params' => [
+                'userClass' => 'app\models\User',
+            ]
         ],
         'datecontrol' =>  [
             'class' => 'kartik\datecontrol\Module',
