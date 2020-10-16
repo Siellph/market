@@ -25,6 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
+        <?= Html::a('Добавить запись', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     </div>
 
@@ -35,7 +36,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'name',
             'inn',
-            'adress',
+            'mesto_ustanovki',
+            'adress_ustanovki',
             'kkt',
             'zn_kkt',
             'fn',

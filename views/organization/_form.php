@@ -3,7 +3,6 @@
 use yii\helpers\Html;
 use kartik\widgets\ActiveForm;
 use kartik\builder\Form;
-use kartik\datecontrol\DateControl;
 use kartik\widgets\Select2;
 
 /**
@@ -30,10 +29,6 @@ include_once "__bd_ofd.php"
             'adress' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Юридический адрес...', 'maxlength' => 512]],
 
             'director' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Должность и руководитель...', 'maxlength' => 512]],
-
-            'mesto_ustanovki' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Место установки...', 'maxlength' => 64]],
-
-            'adress_ustanovki' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Адрес установки...', 'maxlength' => 512]],
 
             'ofd' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter ОФД...', 'maxlength' => 256]],
 

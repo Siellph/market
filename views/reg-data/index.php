@@ -47,16 +47,43 @@ $gridColumns = [
         'vAlign'=>'middle',
     ],
     [
-        'attribute' => 'inn',
+        'class'=>'kartik\grid\EditableColumn',
+        'attribute'=>'inn',
+        'editableOptions'=>[
+            'formOptions' => ['action' => ['/reg-data/editinn']],
+            'placement' => PopoverX::ALIGN_AUTO_LEFT,
+            'inputType'=>\kartik\editable\Editable::INPUT_TEXT,
+        ],
+        'hAlign'=>'center',
         'vAlign'=>'middle',
-        'headerOptions'=>['class'=>'kv-sticky-column'],
-        'contentOptions'=>['class'=>'kv-sticky-column'],
+        'format'=>['text'],
+        'pageSummary'=>true
     ],
     [
-        'attribute' => 'adress',
+        'class'=>'kartik\grid\EditableColumn',
+        'attribute'=>'mesto_ustanovki',
+        'editableOptions'=>[
+            'formOptions' => ['action' => ['/reg-data/editMU']],
+            'placement' => PopoverX::ALIGN_AUTO_LEFT,
+            'inputType'=>\kartik\editable\Editable::INPUT_TEXT,
+        ],
+        'hAlign'=>'center',
         'vAlign'=>'middle',
-        'headerOptions'=>['class'=>'kv-sticky-column'],
-        'contentOptions'=>['class'=>'kv-sticky-column'],
+        'format'=>['text'],
+        'pageSummary'=>true
+    ],
+    [
+        'class'=>'kartik\grid\EditableColumn',
+        'attribute'=>'adress_ustanovki',
+        'editableOptions'=>[
+            'formOptions' => ['action' => ['/reg-data/editAU']],
+            'placement' => PopoverX::ALIGN_AUTO_LEFT,
+            'inputType'=>\kartik\editable\Editable::INPUT_TEXT,
+        ],
+        'hAlign'=>'center',
+        'vAlign'=>'middle',
+        'format'=>['text'],
+        'pageSummary'=>true
     ],
     [
         'attribute' => 'kkt',
@@ -83,10 +110,17 @@ $gridColumns = [
         'contentOptions'=>['class'=>'kv-sticky-column'],
     ],
     [
-        'attribute' => 'rnm',
+        'class'=>'kartik\grid\EditableColumn',
+        'attribute'=>'rnm',
+        'editableOptions'=>[
+            'formOptions' => ['action' => ['/reg-data/editrnm']],
+            'placement' => PopoverX::ALIGN_AUTO_LEFT,
+            'inputType'=>\kartik\editable\Editable::INPUT_TEXT,
+        ],
+        'hAlign'=>'center',
         'vAlign'=>'middle',
-        'headerOptions'=>['class'=>'kv-sticky-column'],
-        'contentOptions'=>['class'=>'kv-sticky-column'],
+        'format'=>['text'],
+        'pageSummary'=>true
     ],
     [
         'class'=>'kartik\grid\EditableColumn',

@@ -25,10 +25,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'director') ?>
 
-    <?= $form->field($model, 'mesto_ustanovki') ?>
-
-    <?php // echo $form->field($model, 'adress_ustanovki') ?>
-
     <?php // echo $form->field($model, 'ofd') ?>
 
     <div class="form-group">

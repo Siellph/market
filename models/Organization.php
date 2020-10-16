@@ -33,11 +33,10 @@ class Organization extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'inn', 'adress', 'director', 'mesto_ustanovki', 'adress_ustanovki', 'ofd'], 'required'],
+            [['name', 'inn', 'adress', 'director', 'ofd'], 'required'],
             [['name', 'ofd'], 'string', 'max' => 256],
             [['inn'], 'string', 'max' => 12],
-            [['adress', 'director', 'adress_ustanovki'], 'string', 'max' => 512],
-            [['mesto_ustanovki'], 'string', 'max' => 64],
+            [['adress', 'director'], 'string', 'max' => 512],
             [['inn'], 'unique'],
         ];
     }
@@ -52,8 +51,6 @@ class Organization extends \yii\db\ActiveRecord
             'inn' => 'ИНН',
             'adress' => 'Юридический адрес',
             'director' => 'Должность и руководитель',
-            'mesto_ustanovki' => 'Место установки',
-            'adress_ustanovki' => 'Адрес установки',
             'ofd' => 'ОФД',
         ];
     }
