@@ -55,7 +55,7 @@ class RegDataController extends Controller
                 },
                 'showModelErrors' => true,                        // show model validation errors after save
                 'errorOptions' => ['header' => ''],                // error summary HTML options
-                'postOnly' => true,
+                // 'postOnly' => true,
                 // 'ajaxOnly' => true,
                 // 'findModel' => function($id, $action) {},
                 // 'checkAccess' => function($action, $model) {}

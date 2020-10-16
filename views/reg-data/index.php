@@ -24,7 +24,6 @@ $gridColumns = [
     ],
     [
         'class' => 'kartik\grid\ExpandRowColumn',
-        'width' => '50px',
         'value' => function ($model, $key, $index, $column) {
             return GridView::ROW_COLLAPSED;
         },
@@ -46,6 +45,7 @@ $gridColumns = [
         'attribute' => 'name',
         'vAlign'=>'middle',
     ],
+Yii::$app->user->can('admin') ? (
     [
         'class'=>'kartik\grid\EditableColumn',
         'attribute'=>'inn',
@@ -58,7 +58,15 @@ $gridColumns = [
         'vAlign'=>'middle',
         'format'=>['text'],
         'pageSummary'=>true
-    ],
+    ] ) : (
+        [
+            'attribute' => 'inn',
+            'vAlign'=>'middle',
+            'headerOptions'=>['class'=>'kv-sticky-column'],
+            'contentOptions'=>['class'=>'kv-sticky-column'],
+        ]
+    ),
+Yii::$app->user->can('admin') ? (
     [
         'class'=>'kartik\grid\EditableColumn',
         'attribute'=>'mesto_ustanovki',
@@ -71,7 +79,15 @@ $gridColumns = [
         'vAlign'=>'middle',
         'format'=>['text'],
         'pageSummary'=>true
-    ],
+    ] ) : (
+        [
+            'attribute' => 'mesto_ustanovki',
+            'vAlign'=>'middle',
+            'headerOptions'=>['class'=>'kv-sticky-column'],
+            'contentOptions'=>['class'=>'kv-sticky-column'],
+        ]
+    ),
+    Yii::$app->user->can('admin') ? (
     [
         'class'=>'kartik\grid\EditableColumn',
         'attribute'=>'adress_ustanovki',
@@ -84,7 +100,14 @@ $gridColumns = [
         'vAlign'=>'middle',
         'format'=>['text'],
         'pageSummary'=>true
-    ],
+    ] ) : (
+        [
+            'attribute' => 'adress_ustanovki',
+            'vAlign'=>'middle',
+            'headerOptions'=>['class'=>'kv-sticky-column'],
+            'contentOptions'=>['class'=>'kv-sticky-column'],
+        ]
+    ),
     [
         'attribute' => 'kkt',
         'vAlign'=>'middle',
@@ -109,6 +132,7 @@ $gridColumns = [
         'headerOptions'=>['class'=>'kv-sticky-column'],
         'contentOptions'=>['class'=>'kv-sticky-column'],
     ],
+    Yii::$app->user->can('admin') ? (
     [
         'class'=>'kartik\grid\EditableColumn',
         'attribute'=>'rnm',
@@ -121,7 +145,15 @@ $gridColumns = [
         'vAlign'=>'middle',
         'format'=>['text'],
         'pageSummary'=>true
-    ],
+    ] ) : (
+        [
+            'attribute' => 'rnm',
+            'vAlign'=>'middle',
+            'headerOptions'=>['class'=>'kv-sticky-column'],
+            'contentOptions'=>['class'=>'kv-sticky-column'],
+        ]
+    ),
+    Yii::$app->user->can('admin') ? (
     [
         'class'=>'kartik\grid\EditableColumn',
         'attribute'=>'licens',
@@ -134,7 +166,14 @@ $gridColumns = [
         'vAlign'=>'middle',
         'format'=>['text'],
         'pageSummary'=>true
-    ],
+    ] ) : (
+        [
+            'attribute' => 'licens',
+            'vAlign'=>'middle',
+            'headerOptions'=>['class'=>'kv-sticky-column'],
+            'contentOptions'=>['class'=>'kv-sticky-column'],
+        ]
+    ),
     [
         'attribute' => 'proshivka',
         'vAlign'=>'middle',
@@ -153,6 +192,7 @@ $gridColumns = [
         'headerOptions'=>['class'=>'kv-sticky-column'],
         'contentOptions'=>['class'=>'kv-sticky-column'],
     ],
+    Yii::$app->user->can('admin') ? (
     [   
         'class'=>'kartik\grid\EditableColumn',
         'attribute'=>'status',
@@ -175,9 +215,17 @@ $gridColumns = [
         'hAlign' => 'center',
         'format'=>['text'],
         'pageSummary'=>true
-    ],
+    ] ) : (
+        [
+            'attribute' => 'status',
+            'vAlign'=>'middle',
+            'headerOptions'=>['class'=>'kv-sticky-column'],
+            'contentOptions'=>['class'=>'kv-sticky-column'],
+        ]
+    ),
     [
         'class' => 'kartik\grid\ActionColumn',
+        'template' => YII::$app->user->can('admin') ? ('{view}&nbsp;{update}&nbsp{delete}') : ('{view}'),
         'dropdown' => false,
         'vAlign'=>'middle',
     ],

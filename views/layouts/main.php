@@ -44,10 +44,12 @@ if (Yii::$app->user->isGuest) {
 } else {
     $menuItems[] = ['label' => 'Регистрационные данные', 'url' => ['/reg-data/index']];
     $menuItems[] = ['label' => 'Организации', 'url' => ['/organization/index']];
+    if (Yii::$app->user->can('admin')) {
     $menuItems[] = ['label' => 'Новый пользователь', 'url' => ['/site/signup']];
     $menuItems[] = ['label' => 'Все пользователи', 'url' => ['/users/index']];
     $menuItems[] = ['label' => 'Управление ролями', 'url' => ['/permit/access/role']];
     $menuItems[] = ['label' => 'Права доступа', 'url' => ['/permit/access/permission']];
+    };
     $menuItems[] = '<li>'
         . Html::beginForm(['/site/logout'], 'post')
         . Html::submitButton(

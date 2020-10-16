@@ -74,6 +74,7 @@ $gridColumns = [
     ],
     [
     'class' => '\kartik\grid\ActionColumn',
+    'template' => YII::$app->user->can('admin') ? ('{view}&nbsp;{update}&nbsp{delete}') : ('{view}'),
     'vAlign'=>'middle',
     ],
 ];

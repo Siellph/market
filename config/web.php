@@ -8,18 +8,18 @@ $config = [
     'basePath' => dirname(__DIR__),
     'language' => 'ru-RU',
     'bootstrap' => ['log'],
-    'defaultRoute' => '',
+    'defaultRoute' => 'site/index',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
     ],
     'as AccessBehavior' => [
         'class' => \developeruz\db_rbac\behaviors\AccessBehavior::className(),
-        'protect' => ['site', 'organization', 'reg-data', 'users'],
+        'protect' => ['site', 'organization', 'reg-data', 'users', 'permit'],
         'rules' => [
             'site' => [
                     [
-                        'actions' => ['login'],
+                        'actions' => ['login', 'logout'],
                         'allow' => true,
                     ],
                 ],
