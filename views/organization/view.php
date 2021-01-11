@@ -18,6 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <h1><?= Html::encode($this->title) ?></h1>
     </div>
     <p>
+    <?php if (Yii::$app->user->can('admin')) { ?>
         <?= Html::a('Обновить', ['update', 'id' => $model->inn], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Удалить', ['delete', 'id' => $model->inn], [
             'class' => 'btn btn-danger',
@@ -26,6 +27,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
+        <?= Html::a('Добавить организацию', ['create'], ['class' => 'btn btn-success']) ?>
+        <?php } ?>
     </p>
 
     <?= DetailView::widget([
@@ -35,8 +38,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'inn',
             'adress',
             'director',
-            'mesto_ustanovki',
-            'adress_ustanovki',
             'ofd',
         ],
     ]) ?>

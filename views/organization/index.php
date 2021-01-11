@@ -67,18 +67,6 @@ $gridColumns = [
         'contentOptions'=>['class'=>'kv-sticky-column'],
     ],
     [
-        'attribute' => 'mesto_ustanovki',
-        'vAlign'=>'middle',
-        'headerOptions'=>['class'=>'kv-sticky-column'],
-        'contentOptions'=>['class'=>'kv-sticky-column'],
-    ],
-    [
-        'attribute' => 'adress_ustanovki',
-        'vAlign'=>'middle',
-        'headerOptions'=>['class'=>'kv-sticky-column'],
-        'contentOptions'=>['class'=>'kv-sticky-column']
-    ],
-    [
         'attribute' => 'ofd',
         'vAlign'=>'middle',
         'headerOptions'=>['class'=>'kv-sticky-column'],
@@ -86,6 +74,7 @@ $gridColumns = [
     ],
     [
     'class' => '\kartik\grid\ActionColumn',
+    'template' => YII::$app->user->can('admin') ? ('{view}&nbsp;{update}&nbsp{delete}') : ('{view}'),
     'vAlign'=>'middle',
     ],
 ];

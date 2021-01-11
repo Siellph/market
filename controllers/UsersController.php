@@ -3,17 +3,16 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Organization;
-use app\models\OrganizationQuery;
+use app\models\User;
+use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\filters\AccessControl;
 
 /**
- * OrganizationController implements the CRUD actions for Organization model.
+ * UsersController implements the CRUD actions for User model.
  */
-class OrganizationController extends Controller
+class UsersController extends Controller
 {
     public function behaviors()
     {
@@ -28,23 +27,23 @@ class OrganizationController extends Controller
     }
 
     /**
-     * Lists all Organization models.
+     * Lists all User models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new OrganizationQuery;
-        $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
+        $dataProvider = new ActiveDataProvider([
+            'query' => User::find(),
+        ]);
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,
-            'searchModel' => $searchModel,
         ]);
     }
 
     /**
-     * Displays a single Organization model.
-     * @param string $id
+     * Displays a single User model.
+     * @param integer $id
      * @return mixed
      */
     public function actionView($id)
@@ -52,23 +51,23 @@ class OrganizationController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->inn]);
+            return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('view', ['model' => $model]);
         }
     }
 
     /**
-     * Creates a new Organization model.
+     * Creates a new User model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Organization;
+        $model = new User;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->inn]);
+            return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -77,9 +76,9 @@ class OrganizationController extends Controller
     }
 
     /**
-     * Updates an existing Organization model.
+     * Updates an existing User model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param string $id
+     * @param integer $id
      * @return mixed
      */
     public function actionUpdate($id)
@@ -87,7 +86,7 @@ class OrganizationController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->inn]);
+            return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -96,9 +95,9 @@ class OrganizationController extends Controller
     }
 
     /**
-     * Deletes an existing Organization model.
+     * Deletes an existing User model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param string $id
+     * @param integer $id
      * @return mixed
      */
     public function actionDelete($id)
@@ -109,15 +108,15 @@ class OrganizationController extends Controller
     }
 
     /**
-     * Finds the Organization model based on its primary key value.
+     * Finds the User model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param string $id
-     * @return Organization the loaded model
+     * @param integer $id
+     * @return User the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Organization::findOne($id)) !== null) {
+        if (($model = User::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

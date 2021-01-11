@@ -8,11 +8,23 @@ $config = [
     'basePath' => dirname(__DIR__),
     'language' => 'ru-RU',
     'bootstrap' => ['log'],
-    'defaultRoute' => 'reg-data',
+    'defaultRoute' => 'site/index',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
     ],
+    'as AccessBehavior' => [
+        'class' => \developeruz\db_rbac\behaviors\AccessBehavior::className(),
+        'protect' => ['site', 'organization', 'reg-data', 'users', 'permit'],
+        'rules' => [
+            'site' => [
+                    [
+                        'actions' => ['login', 'logout'],
+                        'allow' => true,
+                    ],
+                ],
+            ],
+        ],
     'components' => [
         'request' => [
             'baseUrl' => '',
@@ -24,7 +36,8 @@ $config = [
         ],
         'user' => [
             'identityClass' => 'app\models\User',
-            'enableAutoLogin' => true,
+            'enableAutoLogin' => false,
+            'loginUrl' => ['/site/login'],
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
@@ -58,8 +71,11 @@ $config = [
                     'class' => 'yii\i18n\PhpMessageSource',
                     'basePath' => '@vendor/kartik-v/yii2-grid/messages',
                 ],
-          ],
-     ],
+            ],
+        ],
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager',
+        ],
     ],
     'modules' => [
         'gridview' =>  [
@@ -69,6 +85,12 @@ $config = [
              // message source
              // 'downloadAction' => 'gridview/export/download',
              // 'i18n' => []
+        ],
+        'permit' => [
+            'class' => 'developeruz\db_rbac\Yii2DbRbac',
+            'params' => [
+                'userClass' => 'app\models\User',
+            ]
         ],
         'datecontrol' =>  [
             'class' => 'kartik\datecontrol\Module',

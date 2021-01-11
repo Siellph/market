@@ -15,7 +15,7 @@ class OrganizationQuery extends Organization
     public function rules()
     {
         return [
-            [['name', 'inn', 'adress', 'director', 'mesto_ustanovki', 'adress_ustanovki', 'ofd'], 'safe'],
+            [['name', 'inn', 'adress', 'director', 'ofd'], 'safe'],
         ];
     }
 
@@ -45,8 +45,6 @@ class OrganizationQuery extends Organization
             ->andFilterWhere(['like', 'inn', $this->inn])
             ->andFilterWhere(['like', 'adress', $this->adress])
             ->andFilterWhere(['like', 'director', $this->director])
-            ->andFilterWhere(['like', 'mesto_ustanovki', $this->mesto_ustanovki])
-            ->andFilterWhere(['like', 'adress_ustanovki', $this->adress_ustanovki])
             ->andFilterWhere(['like', 'ofd', $this->ofd]);
 
         return $dataProvider;
@@ -72,8 +70,6 @@ class OrganizationQuery extends Organization
             ->andFilterWhere(['like', 'inn', $this->inn])
             ->andFilterWhere(['like', 'adress', $this->adress])
             ->andFilterWhere(['like', 'director', $this->director])
-            ->andFilterWhere(['like', 'mesto_ustanovki', $this->mesto_ustanovki])
-            ->andFilterWhere(['like', 'adress_ustanovki', $this->adress_ustanovki])
             ->andFilterWhere(['like', 'ofd', $this->ofd]);
 
         return $dataProvider;

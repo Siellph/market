@@ -23,7 +23,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'inn') ?>
 
-    <?= $form->field($model, 'adress') ?>
+    <?= $form->field($model, 'mesto_ustanovki') ?>
+
+    <?= $form->field($model, 'adress_ustanovki') ?>
 
     <?= $form->field($model, 'kkt') ?>
 

@@ -10,7 +10,8 @@ use Yii;
  * @property int $id
  * @property string $name Наименование компании
  * @property string|null $inn ИНН
- * @property string $adress Юридический адрес
+ * @property string $adress_ustanovki Юридический адрес
+ * @property string $mesto_ustanovki Юридический адрес
  * @property string $kkt Марка/модель ККТ
  * @property string $zn_kkt Заводской номер ККТ
  * @property string $fn Наименование ФН
@@ -38,11 +39,11 @@ class RegData extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'adress', 'kkt', 'zn_kkt', 'fn', 'zn_fn', 'vid_raboti', 'date_reg'], 'required'],
+            [['name', 'adress_ustanovki', 'kkt', 'zn_kkt', 'fn', 'zn_fn', 'vid_raboti', 'date_reg'], 'required'],
             [['proshivka', 'date_reg'], 'safe'],
             [['name', 'kkt'], 'string', 'max' => 256],
             [['inn'], 'string', 'max' => 12],
-            [['adress', 'fn'], 'string', 'max' => 512],
+            [['mesto_ustanovki', 'adress_ustanovki', 'fn'], 'string', 'max' => 512],
             [['zn_kkt', 'zn_fn', 'status'], 'string', 'max' => 32],
             [['rnm'], 'string', 'max' => 16],
             [['licens'], 'string', 'max' => 64],
@@ -59,7 +60,8 @@ class RegData extends \yii\db\ActiveRecord
             'id' => 'ID',
             'name' => 'Наименование компании',
             'inn' => 'ИНН',
-            'adress' => 'Адрес',
+            'mesto_ustanovki' => 'Место установки',
+            'adress_ustanovki' => 'Адрес установки',
             'kkt' => 'Марка/модель ККТ',
             'zn_kkt' => 'ЗН ККТ',
             'fn' => 'Наименование ФН',

@@ -40,7 +40,9 @@ $content_vid_raboti = [
 
             'inn' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'ИНН...', 'maxlength' => 12]],
 
-            'adress' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Юридический адрес...', 'maxlength' => 512]],
+            'mesto_ustanovki' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Место установки...', 'maxlength' => 64]],
+
+            'adress_ustanovki' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Адрес установки...', 'maxlength' => 512]],
 
             'kkt' => ['type' => Form::INPUT_WIDGET, 'widgetClass' => Select2::className(), 'options' => [
                 'data' => $content_kkt,

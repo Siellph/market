@@ -16,7 +16,7 @@ class RegDataQuery extends RegData
     {
         return [
             [['id'], 'integer'],
-            [['name', 'inn', 'adress', 'kkt', 'zn_kkt', 'fn', 'zn_fn', 'rnm', 'licens', 'proshivka', 'vid_raboti', 'date_reg', 'status'], 'safe'],
+            [['name', 'inn', 'mesto_ustanovki', 'adress_ustanovki', 'kkt', 'zn_kkt', 'fn', 'zn_fn', 'rnm', 'licens', 'proshivka', 'vid_raboti', 'date_reg', 'status'], 'safe'],
         ];
     }
 
@@ -46,7 +46,8 @@ class RegDataQuery extends RegData
 
         $query->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like', 'inn', $this->inn])
-            ->andFilterWhere(['like', 'adress', $this->adress])
+            ->andFilterWhere(['like', 'mesto_ustanovki', $this->mesto_ustanovki])
+            ->andFilterWhere(['like', 'adress_ustanovki', $this->adress_ustanovki])
             ->andFilterWhere(['like', 'kkt', $this->kkt])
             ->andFilterWhere(['like', 'zn_kkt', $this->zn_kkt])
             ->andFilterWhere(['like', 'fn', $this->fn])
@@ -79,7 +80,8 @@ class RegDataQuery extends RegData
 
         $query->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like', 'inn', $this->inn])
-            ->andFilterWhere(['like', 'adress', $this->adress])
+            ->andFilterWhere(['like', 'mesto_ustanovki', $this->mesto_ustanovki])
+            ->andFilterWhere(['like', 'adress_ustanovki', $this->adress_ustanovki])
             ->andFilterWhere(['like', 'kkt', $this->kkt])
             ->andFilterWhere(['like', 'zn_kkt', $this->zn_kkt])
             ->andFilterWhere(['like', 'fn', $this->fn])

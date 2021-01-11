@@ -11,27 +11,19 @@ use yii\filters\VerbFilter;
 use kartik\grid\EditableColumnAction;
 use yii\helpers\ArrayHelper;
 
-/**
- * RegDataController implements the CRUD actions for RegData model.
- */
 class RegDataController extends Controller
 {
     public function behaviors()
     {
         return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['post'],
+    'verbs' => [
+        'class' => VerbFilter::className(),
+        'actions' => [
+            'delete' => ['post'],
                 ],
             ],
         ];
     }
-
-    /**
-     * Lists all RegData models.
-     * @return mixed
-     */
 
     public function actions()
     {
@@ -47,12 +39,76 @@ class RegDataController extends Controller
                 },
                 'showModelErrors' => true,                        // show model validation errors after save
                 'errorOptions' => ['header' => ''],                // error summary HTML options
-                'postOnly' => true,
-                'ajaxOnly' => true,
+                // 'postOnly' => true,
+                // 'ajaxOnly' => true,
                 // 'findModel' => function($id, $action) {},
                 // 'checkAccess' => function($action, $model) {}
             ],
             'editlicens' => [                                       // identifier for your editable column action
+                'class' => EditableColumnAction::className(),     // action class name
+                'modelClass' => RegData::className(),                // the model for the record being edited
+                'outputValue' => function ($model, $attribute, $key, $index) {
+                      return '';      // return any custom output value if desired
+                },
+                'outputMessage' => function($model, $attribute, $key, $index) {
+                      return '';                                  // any custom error to return after model save
+                },
+                'showModelErrors' => true,                        // show model validation errors after save
+                'errorOptions' => ['header' => ''],                // error summary HTML options
+                // 'postOnly' => true,
+                // 'ajaxOnly' => true,
+                // 'findModel' => function($id, $action) {},
+                // 'checkAccess' => function($action, $model) {}
+            ],
+            'editinn' => [                                       // identifier for your editable column action
+                'class' => EditableColumnAction::className(),     // action class name
+                'modelClass' => RegData::className(),                // the model for the record being edited
+                'outputValue' => function ($model, $attribute, $key, $index) {
+                      return '';      // return any custom output value if desired
+                },
+                'outputMessage' => function($model, $attribute, $key, $index) {
+                      return '';                                  // any custom error to return after model save
+                },
+                'showModelErrors' => true,                        // show model validation errors after save
+                'errorOptions' => ['header' => ''],                // error summary HTML options
+                // 'postOnly' => true,
+                // 'ajaxOnly' => true,
+                // 'findModel' => function($id, $action) {},
+                // 'checkAccess' => function($action, $model) {}
+            ],
+            'editrnm' => [                                       // identifier for your editable column action
+                'class' => EditableColumnAction::className(),     // action class name
+                'modelClass' => RegData::className(),                // the model for the record being edited
+                'outputValue' => function ($model, $attribute, $key, $index) {
+                      return '';      // return any custom output value if desired
+                },
+                'outputMessage' => function($model, $attribute, $key, $index) {
+                      return '';                                  // any custom error to return after model save
+                },
+                'showModelErrors' => true,                        // show model validation errors after save
+                'errorOptions' => ['header' => ''],                // error summary HTML options
+                // 'postOnly' => true,
+                // 'ajaxOnly' => true,
+                // 'findModel' => function($id, $action) {},
+                // 'checkAccess' => function($action, $model) {}
+            ],
+            'editMU' => [                                       // identifier for your editable column action
+                'class' => EditableColumnAction::className(),     // action class name
+                'modelClass' => RegData::className(),                // the model for the record being edited
+                'outputValue' => function ($model, $attribute, $key, $index) {
+                      return '';      // return any custom output value if desired
+                },
+                'outputMessage' => function($model, $attribute, $key, $index) {
+                      return '';                                  // any custom error to return after model save
+                },
+                'showModelErrors' => true,                        // show model validation errors after save
+                'errorOptions' => ['header' => ''],                // error summary HTML options
+                // 'postOnly' => true,
+                // 'ajaxOnly' => true,
+                // 'findModel' => function($id, $action) {},
+                // 'checkAccess' => function($action, $model) {}
+            ],
+            'editAU' => [                                       // identifier for your editable column action
                 'class' => EditableColumnAction::className(),     // action class name
                 'modelClass' => RegData::className(),                // the model for the record being edited
                 'outputValue' => function ($model, $attribute, $key, $index) {
@@ -74,35 +130,6 @@ class RegDataController extends Controller
     {
         $searchModel = new RegDataQuery;
         $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
-
-    // if (Yii::$app->request->post('hasEditable')) {
-
-    //     $status = Yii::$app->request->post('editableKey');
-    //     $model = RegData::findOne($status);
-
-    //     $out = Json::encode(['output'=>'', 'message'=>'']);
-
-    //     $posted = current($_POST['RegData']);
-    //     $post = ['RegData' => $posted];
-
-    //     if ($model->load($post)) {
-    //     $model->save();
-
-    //     $output = '';
-
-    //     if (isset($posted['status'])) {
-    //     $output = Yii::$app->formatter->asText($model->status);
-    //     }
-
-    //     // similarly you can check if the name attribute was posted as well
-    //     if (isset($posted['status'])) {
-    //     $output = ''; // process as you need
-    //     }
-    //     $out = Json::encode(['output'=>$output, 'message'=>'']);
-    //     }
-    //     echo $out;
-    //     return;
-    // }
         
         return $this->render('index', [
             'dataProvider' => $dataProvider,
@@ -190,4 +217,5 @@ class RegDataController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
 }
