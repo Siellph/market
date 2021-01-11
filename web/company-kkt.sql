@@ -70,7 +70,7 @@ CREATE TABLE `reg_data` (
   `zn_fn` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Заводской номер ФН',
   `rnm` varchar(16) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Регистрационный номер машины',
   `licens` varchar(64) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Лицензия',
-  `proshivka` date DEFAULT current_timestamp() COMMENT 'Прошивка',
+  `proshivka` date NOT NULL COMMENT 'Прошивка',
   `vid_raboti` varchar(128) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Вид работы',
   `date_reg` date NOT NULL COMMENT 'Дата регистрации',
   `status` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'В работе' COMMENT 'Статус'
